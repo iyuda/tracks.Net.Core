@@ -1,0 +1,13 @@
+
+12/31/2019 1:09:28 PM
+http://rma.parabit.com:1340/api/v1/Case/CaseDetails/ GET
+The remote server returned an error: (403) Forbidden.:
+Stack trace: at System.Net.HttpWebRequest.GetResponse()
+   at TracsBusinessLogic.ApiHelper.UrlRequest(String Action, String method, List`1 parameters, String content_type, String data, WebHeaderCollection WebHeaders, Boolean NoAuthorization) in C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\BLLHelper\API\ApiHelper.cs:line 127
+Source: System.Net.Requests
+
+12/31/2019 1:09:28 PM
+
+Object reference not set to an instance of an object.:
+Stack trace: at TracsBusinessLogic.Shipping.GetReceiveList(String SearchColumn, String SearchValue) in C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\BLLHelper\Functions\Shipping.cs:line 174
+Source: TracsBusinessLogic

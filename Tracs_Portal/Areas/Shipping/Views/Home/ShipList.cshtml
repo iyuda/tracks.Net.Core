@@ -1,0 +1,137 @@
+﻿@using Tracs.Common.Models;
+@model List<ShippingModel>
+
+<fieldset>
+    <div id="divShipping" style="width:50%;overflow-y: scroll;margin:0 auto" class="shipping-container">
+        <table style="border-color:black;border:solid;" class="center table table-striped table-bordered" id="tblShip">
+
+            <thead>
+                <tr style="background-color:#eee;border-color:black">
+                    <th class="headerSortable" style="border-color:black;text-align:center"><span>Case ID</span> </th>
+                    <th class="nonSortable" style="border-color:black;text-align:center"><span>Ship</span></th>
+
+                </tr>
+            </thead>
+            @{
+                if (Model != null)
+                {
+                    var SearchColumn = ViewBag.SearchColumn;
+                    var SearchValue = ViewBag.SearchValue;
+                    foreach (var item in Model)
+                    {
+                        if (!String.IsNullOrEmpty(SearchColumn) && !String.IsNullOrEmpty(SearchValue))
+                        {
+                            var currentValue = item.GetType().GetProperty(SearchColumn).GetValue(item, null)?.ToString();
+                            if (!String.IsNullOrEmpty(currentValue))
+                            {
+                                if (!(currentValue.ToLower().Contains(SearchValue.ToLower())))
+                                {
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                if (!(currentValue == SearchValue))
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        <tr id="send_case_@item.RMAId">
+                            <td style="text-align:center;vertical-align:middle">@item.RMAId</td>
+                            <td style="text-align:center;vertical-align:middle">
+                                <input onclick="ShowShippingDialog('@item.RMAId')" style="width:40px;height:40px;" type="image" src="~/images/checked-checkbox-filled.png" name="imgShipped" class="btn-dialog" id="imgShipped" autocomplete="none">
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+
+        </table>
+
+        <div class="container" style="border-top:none">
+
+        </div>
+    </div>
+
+</fieldset>
+
+<script>
+    function ShowShippingDialog(case_id) {
+        var message = '<p style="color:black; font-weight:bold; font-size:x-large;padding-top:30px">Ship the Package</p>';
+        var html = '<br /><br /> <input  onkeyup="ValidateTrackingNo()" style ="text-align:center; width:30%; margin-right:auto; margin-left:auto;" maxlength="12" autofocus = "" class="form-control" id = "txtShipTrackingNumber" name = "CaseID" placeholder = "Tracking Number" required = "" type = "text" >';
+        html += '<br /><br /><br /><button style ="width:30%;" id="btnShip"  onclick = "ShipItem(\'' + case_id + '\')"' + ' type = "button" class="para-btn clear" > Ship </button > ';
+
+        $('.btn-dialog').attr('disabled', 'disabled');
+        changeToTapToDismissWithClose();
+        changeFeedbackMessage('none', message, '', html, true);
+    }
+
+
+    function ShipItem(case_id) {
+        if (!ValidateTrackingNo())
+            return;
+        var queryString = $.param({ RmaID: case_id, TrackingNumber: $("#txtShipTrackingNumber").val() });
+        var sURL = '@Url.Action("ShipItem", "Home")' +  '?' + queryString;
+        $.get(sURL)
+            .done(function (data) {
+                var message = data.message;
+                if (data.status == '1') {
+                    message = '<p>' + message + '<p>' + case_id;
+                    $('#send_case_' + case_id).remove();
+                    CloseShipDialog();
+                    changeToStandardToastr();
+                    changeFeedbackMessage('success', message);
+                }
+                else {
+                    ShowShippingTrackingNoError(message);
+                }
+            })
+            .fail(function (error) {
+                ShowShippingTrackingNoError(error);
+            });
+    }
+
+    function CloseShipDialog(case_id) {
+
+        $(".toast-close-button").click();
+    }
+
+
+    function ValidateTrackingNo() {
+
+        if ($("#txtShipTrackingNumber").val().trim() == "") {
+            ShowShippingTrackingNoError('Tracking Number Not Entered!');
+            $("#btnShip").attr("disabled", "disabled");
+            return false;
+        }
+        else {
+            $('.tracking-no-error').remove();
+            $("#btnShip").removeAttr("disabled");
+            return true;
+        }
+
+    }
+    function ShowShippingTrackingNoError(errorMsg) {
+        $('.tracking-no-error').remove();
+        var $lblError = $("<label  style='border:none;color:red;text-align:center;  margin-right:auto; margin-left:auto;' class='tracking-no-error form-control'>");
+        $lblError.css("background-color", $("#txtShipTrackingNumber").parent().css("background-color"));
+        $lblError.text(errorMsg);
+        $lblError.insertAfter($("#txtShipTrackingNumber"));
+    }
+
+
+    $('body').on('keydown', '#txtShipTrackingNumber', function (e) {
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        }
+    });
+
+</script>
+
+
+
+
+
+
+

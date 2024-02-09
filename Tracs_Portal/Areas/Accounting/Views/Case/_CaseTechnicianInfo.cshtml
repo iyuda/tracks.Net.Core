@@ -1,0 +1,57 @@
+﻿@model Tracs.Common.Models.TechnicianInfoModel
+
+<div class="card border-light mb-3" style="max-width: 35rem;">
+    <div class="card-header font-weight-light cardheaderfixed">Technician Info</div>
+    <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:150px;">
+        @if (Model == null)
+        {
+            <span>No Technician Info available.</span>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.TechnicianName):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TechnicianName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.TechnicianEmail):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TechnicianEmail)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.TechnicianPhone):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TechnicianPhone)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.TechnicianCompany):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TechnicianCompany)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.PrimeContractor):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.PrimeContractor)
+                    </td>
+                </tr>
+            </table>
+        }
+
+    </div>
+</div>

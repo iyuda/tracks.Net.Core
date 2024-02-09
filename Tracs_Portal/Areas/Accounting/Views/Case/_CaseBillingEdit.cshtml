@@ -1,0 +1,210 @@
+﻿@model TRACSPortal.Areas.Accounting.Models.AccountingCaseViewModel
+<script>
+    $(".btnEditCancel").click(function (e) {
+        $("#divCaseEditView").hide();
+        $("#divCaseListView").show();
+    });
+
+    $(".btnSaveEditBilling").click(function (e) {
+        var $form = $(this.form);
+        var cnt = $('.tbpartsEdit').find('input[type=checkbox]:checked').length
+        $form[0].classList.add('was-validated');
+        if ($form[0].checkValidity() === false || cnt < 1) {
+            if (cnt < 1) {
+                $(".lblErrorEditBilling").text("Please select at least one part for this billing.");
+                $(".lblErrorEditBilling").show();
+            }
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/SaveBilling",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formBill').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divBody').html(response);
+                $('#divBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+    $(".trPartEdit").click(function (e) {
+        $(this).find("input[type=checkbox]").attr("checked", !$(this).find("input[type=checkbox]").prop("checked"));
+        if ($(this).find("input[type=checkbox]").length < 1) {
+            $(".lblErrorEditBilling").text("Please select at least one part for this billing.");
+            $(".lblErrorEditBilling").show();
+        }
+        else {
+            $(".lblErrorEditBilling").text("");
+            $(".lblErrorEditBilling").hide();
+        }
+    });
+
+</script>
+<form method="POST" id="formBill" enctype="multipart/form-data">
+    @Html.HiddenFor(model => model.CurrentSearchModel.SelectedRadioSearch)
+    @Html.HiddenFor(model => model.CurrentSearchModel.SearchKeyWord)
+    @Html.HiddenFor(model => model.CurrentSearchModel.SelectedBankId)
+    @Html.HiddenFor(model => model.CurrentSearchModel.FromDate)
+    @Html.HiddenFor(model => model.CurrentSearchModel.ToDate)
+    <div class="card border-light mb-3">
+        <div class="card-header font-weight-light cardheaderfixed">
+            Billing Info: @if (Model.SelectedBilling != null && Model.SelectedBilling.PartListForBilling != null)
+            {
+                @Model.SelectedBilling.InvoiceNumber;
+        }
+        </div>
+        <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:350px;">
+            @if (Model.SelectedBilling == null || Model.SelectedBilling.PartListForBilling == null)
+            {
+                <span>No Part available.</span>
+            }
+            else
+            {
+                if (Model.SelectedBilling.PartListForBilling.Count == 0)
+                {
+                    <span>No Part available.</span>
+                }
+                else
+                {
+                    <table style="width:100%">
+                        <tr style="vertical-align:top;">
+                            <td style="width:50%">
+                                <table class="table tbpartlist tbpartsEdit">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.SelectedBilling.PartListForBilling[0].PartNumber)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.SelectedBilling.PartListForBilling[0].PartDescription)
+                                            </th>
+                                            <th>@Html.DisplayNameFor(model => model.SelectedBilling.PartListForBilling[0].SerialNumber)</th>
+                                            <th>@Html.DisplayNameFor(model => model.SelectedBilling.PartListForBilling[0].WarrantyStatus)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.SelectedBilling.PartListForBilling.Count; i++)
+                                        {
+                                            <tr class="trPartEdit" style="height:5px">
+                                                <td>
+                                                    @Html.DisplayFor(model => Model.SelectedBilling.PartListForBilling[i].PartNumber)
+                                                    @Html.HiddenFor(model => Model.SelectedBilling.PartListForBilling[i].PartNumber, new { id = "hiddenPartNumber" + Model.SelectedBilling.PartListForBilling[i].SerialNumber })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => Model.SelectedBilling.PartListForBilling[i].PartDescription)
+                                                    @Html.HiddenFor(model => Model.SelectedBilling.PartListForBilling[i].PartDescription)
+
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => Model.SelectedBilling.PartListForBilling[i].SerialNumber)
+                                                    @Html.HiddenFor(modelItem => Model.SelectedBilling.PartListForBilling[i].SerialNumber, new { id = "hiddenSerialNumber" + Model.SelectedBilling.PartListForBilling[i].SerialNumber })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => Model.SelectedBilling.PartListForBilling[i].WarrantyStatus)
+                                                    @Html.HiddenFor(modelItem => Model.SelectedBilling.PartListForBilling[i].WarrantyStatus)
+
+                                                </td>
+                                                <td style="height:5px">
+                                                    <div class="custom-control custom-checkbox" style="height:5px">
+                                                        @Html.CheckBoxFor(modelItem => Model.SelectedBilling.PartListForBilling[i].IsSignToBilling, new { @class = "custom-control-input ckbPart", id = Model.SelectedBilling.PartListForBilling[i].SerialNumber, name = "CheckboxPartEdit", @checked = Model.SelectedBilling.PartListForBilling[i].IsSignToBilling })
+                                                        <label class="custom-control-label" for="@Model.SelectedBilling.PartListForBilling[i].SerialNumber"></label>
+                                                        @Html.HiddenFor(modelItem => Model.SelectedBilling.PartListForBilling[i].IsSignToBilling)
+                                                        @Html.HiddenFor(modelItem => Model.SelectedBilling.PartListForBilling[i].IsSignToBillingPre)
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                        @if (Model.SelectedPartsForAdd != null && Model.SelectedPartsForAdd.Count > 0)
+                                        {
+                                            for (int i = 0; i < Model.SelectedPartsForAdd.Count; i++)
+                                            {
+                                                <tr class="trPartEdit" id="@Model.SelectedPartsForAdd[i].SerialNumber" style="height:5px">
+                                                    <td>
+                                                        @Html.DisplayFor(model => Model.SelectedPartsForAdd[i].PartNumber)
+                                                        @Html.HiddenFor(model => Model.SelectedPartsForAdd[i].PartNumber)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => Model.SelectedPartsForAdd[i].PartDescription)
+                                                        @Html.HiddenFor(model => Model.SelectedPartsForAdd[i].PartDescription)
+
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => Model.SelectedPartsForAdd[i].SerialNumber)
+                                                        @Html.HiddenFor(modelItem => Model.SelectedPartsForAdd[i].SerialNumber)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => Model.SelectedPartsForAdd[i].WarrantyStatus)
+                                                        @Html.HiddenFor(modelItem => Model.SelectedPartsForAdd[i].WarrantyStatus)
+
+                                                    </td>
+                                                    <td style="height:5px">
+                                                        <div class="custom-control custom-checkbox" style="height:5px">
+                                                            @Html.CheckBoxFor(modelItem => Model.SelectedPartsForAdd[i].IsSignToBilling, new { @class = "custom-control-input ckbPart", id = Model.SelectedPartsForAdd[i].SerialNumber, name = "CheckboxPartsForAddEdit"})
+                                                            <label class="custom-control-label" for="@Model.SelectedPartsForAdd[i].PartNumber"></label>
+                                                            @Html.HiddenFor(modelItem => Model.SelectedPartsForAdd[i].IsSignToBilling)
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td style="width:50%">
+                                <div class="card-body" style="font-size:small;padding:20px 12px 12px 12px;height:350px;">
+                                    <div class="input-group mb-md-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.SelectedBilling.PoOrderNumber)</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.SelectedBilling.PoOrderNumber, new { @class = "form-control form-control-danger", id = "txtPoOrderNumberEdit", placeholder = "Please input PoOrder Number" })
+                                        <div class="invalid-feedback">Required alphanumeric only with length 1-24.</div>
+                                    </div>
+                                    <div class="input-group mb-md-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.SelectedBilling.SalesOrderNumber)</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.SelectedBilling.SalesOrderNumber, new { @class = "form-control", id = "txtSalesOrderNumberEdit", placeholder = "Please input Sales Order Number" })
+                                        <div class="invalid-feedback">Required alphanumeric only with length 1-24.</div>
+                                    </div>
+                                    <div class="input-group mb-md-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.SelectedBilling.InvoiceNumber)</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.SelectedBilling.InvoiceNumber, new { @class = "form-control", id = "txtInvoiceNumberEdit", placeholder = "Please input Invoice Number" })
+                                        <div class="invalid-feedback">Required alphanumeric only with length 1-24.</div>
+                                    </div>
+                                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                        @Html.CheckBoxFor(model => model.SelectedBilling.ClientRefused, new { @class = "custom-control-input", id = "customControlInlineEdit", @checked = Model.SelectedBilling.ClientRefused })
+                                        <label class="custom-control-label" for="customControlInlineEdit">Client refueses to purchase a new unit</label>
+                                    </div>
+                                    <div class="custom-control-inline" style="float:right;vertical-align:text-bottom">
+                                        <button type="button" class="btn btn-warning btnEditCancel" id="cancelEditButton">Cancel</button> &nbsp;&nbsp;
+                                        <button type="button" class="btn btn-warning btnSaveEditBilling" id="saveEditBilling">Save</button>
+                                        @Html.HiddenFor(model => model.SelectedBilling.RMANumber, new { @class = "form-control", id = "hiddenRMANumberEdit" })
+                                        @Html.HiddenFor(model => model.SelectedBilling.BillingId, new { @class = "form-control", id = "hiddenBillingId" })
+                                    </div>
+                                    <div style="height:60px;">&nbsp;</div>
+                                    <div class="custom-control-inline error-text">
+                                        <label class="lblErrorEditBilling"> @Model.ErrorManageBilling </label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            }
+
+        </div>
+    </div>
+</form>

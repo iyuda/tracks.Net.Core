@@ -1,0 +1,5 @@
+8/19/2019 6:01:19 PM
+Message: TypeError: Cannot read property 'call' of undefined.  Exception occurred when checking element ddlList, check the '__dummy__' method.
+URL: https://localhost:44378/js/Custom/Validation/dist/jquery.validate.min.js
+Line: 4
+

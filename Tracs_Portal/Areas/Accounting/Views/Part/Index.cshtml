@@ -1,0 +1,191 @@
+﻿@using TRACSPortal.Areas.Accounting.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model AccountingPartViewModel
+@*<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>*@
+<script>
+    $(".alinkBackToCase").click(function (e) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Part/GoBackToCase",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formPart').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divBody').html(response);
+                $('#divBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+    $(".backtoCase").click(function (e) {
+        $("#HiddleSelectedCase").val(this.id);
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/BackFromPart",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formPart').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divBody').html(response);
+                $('#divBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+    $(".btnSavePart").click(function (e) {
+        var $form = $(this.form);
+        $form[0].classList.add('was-validated');
+        if ($form[0].checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Part/SavePart",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formPart').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divBody').html(response);
+                $('#divBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+    $(".alinkPartToHome").click(function (e) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Part/GoBackToHome",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formPart').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divWrapBody').html(response);
+                $('#divWrapBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+    $("#txtNewSerialNumber").prop('required', true);
+    $("#txtNewSerialNumber").prop('pattern', '[A-Za-z0-9]{5,6}');
+    $("#txtPartComment").prop('required', true);
+</script>
+<div class="container accountingPart" id="divPartDetails" style="width:100%">
+    <a class="alink alinkPartToHome" style="text-decoration: underline;cursor:pointer">Accounting Home</a>
+    <span> / </span>
+    <a class="alink alinkBackToCase" style="text-decoration: underline;cursor:pointer">Case</a>
+    <span> / Part</span>
+    <form method="Get" id="formPart" enctype="multipart/form-data">
+        <input type="hidden" id="HiddleSelectedPart" class="form-control" asp-for="@Model.SelectedPart.PartNumber" data-value="@Model.SelectedPart.PartNumber" />
+        <input type="hidden" id="HiddleSelectedSerial" class="form-control" asp-for="@Model.SelectedPart.SerialNumber" data-value="@Model.SelectedPart.SerialNumber" />
+        <input type="hidden" id="HiddleSelectedCase" class="form-control" asp-for="@Model.CaseNumber" data-value="@Model.CaseNumber" />
+        @Html.HiddenFor(model => model.CurrentSearchModel.SelectedRadioSearch)
+        @Html.HiddenFor(model => model.CurrentSearchModel.SearchKeyWord)
+        @Html.HiddenFor(model => model.CurrentSearchModel.SelectedBankId)
+        @Html.HiddenFor(model => model.CurrentSearchModel.FromDate)
+        @Html.HiddenFor(model => model.CurrentSearchModel.ToDate)
+        <table style="margin:10px;width:100%">
+            <tr>
+                <td colspan="7"><div class="font-weight-bold">Part Number: @Html.DisplayFor(model => model.SelectedPart.PartNumber)</div></td>
+            </tr>
+            <tr style="vertical-align:top;height:180px;">
+                <td>
+                    <div>
+                        @Html.Partial("_PartBasicInfo", Model)
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.Partial("_TestInfo", Model.SelectedPart.TestInfo)
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.Partial("_WarrantyInfo", Model.SelectedPart.WarrantyInfo)
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.Partial("_InvoiceInfo", Model.SelectedPart.InvoiceInfo)
+                    </div>
+                </td>
+                <td width="30%">&nbsp;</td>
+            </tr>
+            <tr style="vertical-align:top;">
+                <td colspan="4">
+                    @if (Model != null && Model.SelectedPart != null && Model.SelectedPart.PartNumber != null)
+                    {
+                        <table>
+                            <tr style="vertical-align:top;">
+                                <td style="width:460px">
+                                    <div class="input-group mb-md-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.SelectedPart.ReplacementSerialNumber)</span>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.SelectedPart.ReplacementSerialNumber, new { @class = "form-control", id = "txtNewSerialNumber" })
+                                        <div class="invalid-feedback">Required alphanumeric only with length 5-6.</div>
+                                    </div>
+                                    <div class="input-group mb-md-2">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.SelectedPart.WarrantyInfo.WarrantyStatus)</span>
+                                        </div>
+                                        @Html.DropDownListFor(model => model.SelectedWarrantyStatus, Model.Warranties, new { @class = "form-control", id = "ddlListWarranty" })
+                                    </div>
+                                </td>
+                                <td style="width:2px">&nbsp;</td>
+                                <td style="width:500px">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Comment</span>
+                                        </div>
+                                        @Html.TextAreaFor(model => model.SelectedPart.Observations, new { @class = "form-control", id = "txtPartComment", aria_label = "Comment", style = "height:85px;", maxlength = "1000" })
+                                        <div class="invalid-feedback">Commet max length is 1000 charactors.</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="custom-control-inline" style="float:right;vertical-align:text-bottom">
+                                        <a href="#" class="alink backtoCase" id="@Model.CaseNumber"><input type="button" class="btn btn-warning btnCancelPart" value="Cancel"></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button type="button" class="btn btn-warning btnSavePart" id="savePart">Save</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="custom-control-inline error-text">
+                                        <label class="lblErrorUpdatePart"> @Model.ErrorUpdatePart </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                    else
+                    {
+                        <span>No Part info available.</span>
+                    }
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

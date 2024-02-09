@@ -1,0 +1,978 @@
+.nav>li.mobi-x{
+display:none;	
+}
+/*All Devices with Responsive Nav*/
+@media (min-width: 320px) and (max-width: 736px) {
+.nav>li.mobi-x{
+display:block;	
+}
+.navbar{
+padding-top: 0px !important;
+padding-bottom: 0px !important;	
+}
+.navbar-toggle{
+position: relative;
+float: right;
+padding: 9px 10px;
+margin-top: 15px;
+margin-right: 15px;
+margin-bottom: 15px;
+background-color: transparent;
+border: 0px solid transparent;
+border-radius: 0px;
+background-image: url(img/top-bg.jpg);
+background-repeat: repeat-x;
+background-position: top;
+}
+.navbar-default .navbar-toggle .icon-bar{
+background-color:#fff;	
+}
+.head-top{
+padding-top: 5px;
+background-size: cover;	
+}
+.head-top ul{
+margin-bottom: 0px;
+display: table;
+float: none;
+margin: 0 auto;	
+}
+.head-top .top-links ul.pull-right{
+margin-bottom: 0px;
+display: table;
+margin: 0px;
+text-align: right;
+}
+.top-links li{
+	font-size: 12px;
+padding-right: 10px;
+padding-left: 10px;
+padding-top: 5px;	
+}
+.top-links ul li{
+display:none;
+}
+.top-links ul li:last-child{
+display: block;
+float: none;
+text-align: right; 
+font-size: 16px;
+padding-top: 8px;
+padding-right: 0px;
+padding-left: 0px;
+}
+.head-top .social-icons a{
+font-size: 14px;
+padding: 5px 10px 0px 0px;
+}
+.head-top .social-icons li:last-child a{
+font-size: 14px;
+padding: 5px 0px 0px 0px;
+}
+.head-top a{
+font-size: 12px;	
+}
+.social-icons ul{
+margin-bottom: 0px;
+display: table;
+float: none;
+margin: 0px;
+padding-top: 5px;
+}
+.social-icons .list-inline>li{
+padding-right: 0px;
+padding-left: 0px;	
+}
+.navbar-brand{
+height: auto;
+padding: 8px 0px 0px 10px;
+width: 200px;
+}
+.carousel.fade .item{
+min-height: 150px; 	
+}
+.carousel-caption h3, .carousel-caption h2, .carousel .icon-container{
+padding: 10px 5px;
+font-size: 14px;
+}
+.carousel-caption{
+right: 10%;
+left: 10%;
+padding-bottom: 0px;
+padding-top: 0px;
+bottom: 10%;
+top: 20%;	
+}
+.carousel-caption button{
+margin-top: 0px;	
+}
+.carousel-caption .btn-lg{
+padding: 5px 16px;
+font-size: 12px;	
+}
+.carousel-indicators{
+display:none;	
+}
+.pad-it{
+padding-top: 50px; 
+padding-bottom: 50px;	
+}
+
+.bottom-1, .bottom-2, .bottom-3{
+width: 90%;
+height: 170px;
+float: none;
+display: table;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 20px;	
+}
+.btm-3 .btm-text{
+bottom: 0px;
+padding-left: 10px;
+padding-right: 10px;
+padding-bottom: 0px;
+}
+
+.btm-3 .btm-text h3{
+margin-bottom: 5px;
+font-size: 14px;
+margin-top: 15px;
+}
+.btm-3 .btm-text p{
+font-size: 12px;
+float: none;
+display: block;
+margin-bottom: 10px;
+margin-top: 0px;
+}
+.btm-3 .btm-text .btn.btn-orange{
+font-size: 10px;
+margin-top: 5px;
+float: none;
+display: table;
+margin-bottom: 10px;
+padding: 2px 12px;
+}
+.trade-btm{
+padding-top: 40px;
+padding-bottom: 50px;
+text-align: center;
+}
+.trade-btm h1{
+font-size: 26px;	
+}
+.trade-btm .btn{
+margin-top: 5px;
+padding: 5px 15px;	
+}
+.trade-btm .col-sm-8 .col-sm-4{
+margin-bottom:20px;	
+}
+.trade-date{
+margin-bottom: 0px;	
+}
+.trade-btm h4{
+margin-bottom: 5px;
+margin-top: 5px;	
+}
+.news-sec h2{
+margin-top: 5px;
+font-size: 24px;
+margin-bottom: 0px;	
+}
+iframe#twitter-widget-0.twitter-timeline.twitter-timeline-rendered{
+width: 90% !important;
+display: table !important;
+float: none !important;
+margin: 0 auto 30px !important;
+}
+.color-box{
+width:80% !important;
+display:table !important;
+float:none !important;
+margin:10px auto !important;		
+}
+.color-box h4{
+font-size: 14px;	
+}
+.home-news-box{
+min-height: 325px;
+}
+.home-client h2{
+font-size: 24px;	
+}
+.client-logos div{
+height: 80px;	
+}
+.client-logos img{
+max-height: 50px;
+margin: 0 auto 10px;	
+}
+.home-client .carousel-control{
+display:none;	
+}
+.home-client a.more-btm{
+margin: 0px auto 0px;	
+}
+.above-foot{
+display:none;	
+}
+.color-row .color-box+.color-box{
+background-color: #fafafa;
+color: #000;	
+}
+
+.color-row .color-box+.color-box ul a{
+color: #888;	
+}
+.color-row .color-box+.color-box+.color-box ul a{
+color: #fff;	
+}
+.color-row .color-box:last-child, .color-row .color-box+.color-box+.color-box{
+background-color: #f57b20; 	
+}
+.home-news-box ul a, .home-news-box ul a:hover{
+font-size:12px;	
+}
+footer{
+text-align: center;	
+}
+footer .row .col-sm-9{
+	display:none;
+}
+footer .social-icons ul{
+margin-left: auto;
+margin-right: auto;	
+}
+footer .social-icons ul a{
+padding: 0px 10px;	
+}
+
+.navbar-nav{
+margin: 0px;	
+}
+.navbar-default .navbar-nav>li>a{
+padding: 8px 0px 8px 15px !important;
+border-bottom: 1px solid #eee;	
+}
+.yamm-content{
+border-bottom: 1px solid #eee;		
+}
+ul.nav.navbar-nav.navbar-right{
+margin-top: 0px;	
+}
+.yamm .yamm-content{
+padding: 30px 10px 30px !important;	
+}
+
+select.goog-te-combo{
+display: table !important;
+margin: 4px auto !important;
+float: none;	
+}
+.yamm-content h3{
+font-size: 16px !important;
+font-weight: 600 !important;
+margin-bottom: 5px;
+}
+
+.yamm-content p.no-top{
+margin-bottom: 5px;
+line-height: 1;
+}
+.yamm-content small{
+margin-bottom: 10px;
+display: block;
+font-weight: 600 !important;
+}
+.yamm-content ul{
+margin-bottom: 20px;	
+}
+.yamm-content ul a{
+font-size: 14px;
+margin-bottom: 5px;
+display: block;	
+}
+.page-top h1{
+font-size: 20px;	
+}
+p#breadcrumbs{
+font-size: 12px;	
+}
+.page-top{
+padding-top: 0px;
+padding-bottom: 10px;	
+}
+.no-top{
+margin-top: 15px;	
+}
+.ind-side#sidebar h4{
+padding: 14px 0px 12px 0px;	
+}
+.tax-solutions_categories #content article img{
+border: 3px solid #eee;	
+}
+.prod-title{
+height: auto;	
+}
+.tax-solutions_categories #content article h2{
+padding-left: 0px;
+padding-right: 0px;
+font-weight: 400;	
+}
+.tax-solutions_categories #content article h2 a{
+font-size: 14px;
+font-weight: 400;	
+}
+.tax-solutions_categories #content article p{
+padding-left: 0px;
+padding-right: 0px;
+font-size: 12px;
+font-weight: 400;
+line-height: 1.2;
+}
+.tax-solutions_categories #content article{
+	height: 350px;
+}
+
+.pdf-btn::after{
+width: 20px;
+height: 40px;
+font-size: 22px;
+top: 8px;
+}
+.pdf-btn{
+padding: 10px 55px 10px 15px;
+margin-top: 16px;
+display: table;
+border-radius: 5px;
+font-size: 12px;	
+}
+
+.tag-img-top img{
+width:50%;
+display: table;
+margin: 0 auto;	
+float: none;
+}
+.tag-img-top p{
+width: 75%;
+display: table;
+float: none;
+margin: 10px auto 25px;	
+}
+
+.loop-sec article{
+height: 225px;	
+}
+.loop-sec h3{
+font-size: 20px;	
+}
+
+.page-template-page-contact .page-top{
+	margin-bottom:0px;
+}
+.page-template-page-contact #content .pull-right{
+float: none !important;
+}
+.page-template-page-contact #content .fa-ul{
+margin-bottom: 25px;	
+}
+.trade-cust .calendar-bg{
+height: 100px;	
+}
+.trade-cust .calendar-bg::after{
+font-size: 60px;
+top: 15px; 
+left: 30px;
+margin-left: 0px;
+}
+.trade-cust .calendar-bg h4{
+top: 40%;
+left: 25px;	
+}
+.trade-info h3{
+margin-top: 0px;
+padding-left: 15px;
+font-size: 18px;	
+}
+.trade-info p{
+padding-left:15px;	
+}
+.pull-right.trade-right{
+float: none !important	;
+}
+.trade-right{
+padding-top: 20px;	
+}
+.trade-right h4{
+padding-left: 15px;	
+}
+.category #sidebar{
+display:none;	
+}
+.fab-inc h2{
+	font-size: 24px;
+margin-top: 0px;
+}
+
+.fab-inc h2{
+	font-size: 24px;
+margin-top: 0px;
+}
+
+.term-fabrication-design-services .blurbb{
+	height:auto;	
+}
+
+.term-fabrication-design-services .page-top{
+margin-bottom:0px;
+}
+
+#carousel-fab{
+margin-top: 30px;	
+}
+
+}
+
+/*iPhone 5 Portrait*/
+@media (min-width: 319px) and (max-width: 321px) {
+	
+}
+
+
+
+
+/*iPhone 6 Portrait*/
+@media (min-width: 374px) and (max-width: 479px) {
+	
+	
+}
+
+/*iPhone 6 Plus Portrait*/
+@media (min-width: 413px) and (max-width: 415px) {
+	
+	
+
+}
+
+
+
+
+
+/*iPhone 5 Landscape*/
+@media (min-width: 567px) and (max-width: 569px) {
+.trade-btm .col-sm-8.pull-right{
+width:100% !important;	
+}
+.ind-side#sidebar h4{
+padding: 14px 0px 12px 0px;
+text-align: center;	
+}
+.page-template-page-about .client-logos img{
+max-height: 45px;	
+}	
+.tax-solutions_categories #content article{
+height: 400px;	
+}
+a.more-btm{
+margin: 10px auto 5px;	
+}
+.blurbb{
+height: 60px;	
+}
+.pdf-btn::after{
+width: 20px;
+height: 40px;
+font-size: 22px;
+top: 8px;
+}
+.pdf-btn{
+padding: 10px 55px 10px 15px;
+margin-top: 16px;
+display: table;
+border-radius: 5px;
+font-size: 12px;	
+}
+.tag-img-top img{
+width: 20%;	
+}
+.tag-img-top p{
+width: 45%;
+margin: 10px 0px 25px;	
+}
+.tag .client-logos div{
+width: 20%;	
+}
+#sidebar{
+display:none;	
+}
+.loop-sec article{
+height: 225px;
+width: 65%;
+margin: 0 auto;	
+}
+.page-template-page-clients .client-logos div{
+height: 70px;
+width: 20%;	
+}
+.trade-cust .calendar-bg h4{
+top: 40%;
+left: 100px;
+text-align: left;	
+}
+}
+
+/*iPhone 6 Landscape*/
+@media (min-width: 666px) and (max-width: 668px) {
+.trade-btm .col-sm-8.pull-right{
+width:100% !important;	
+}	
+.ind-side#sidebar h4{
+padding: 14px 0px 12px 0px;
+text-align: center;	
+}
+.page-template-page-about .client-logos img{
+max-height: 45px;	
+} 	
+.tax-solutions_categories #content article{
+height: 400px;	
+}
+a.more-btm{
+margin: 10px auto 5px;	
+}
+.blurbb{
+height: 60px;	
+}
+.pdf-btn::after{
+width: 20px;
+height: 40px;
+font-size: 22px;
+top: 8px;
+}
+.pdf-btn{
+padding: 10px 55px 10px 15px;
+margin-top: 16px;
+display: table;
+border-radius: 5px;
+font-size: 12px;	
+}
+.tag-img-top img{
+width: 20%;	
+}
+.tag-img-top p{
+width: 45%;
+margin: 10px 0px 25px;	
+}
+.tag .client-logos div{
+width: 20%;	
+}
+#sidebar{
+display:none;	
+}
+.loop-sec article{
+height: 225px;
+width: 65%;
+margin: 0 auto;	
+}
+.page-template-page-clients .client-logos div{
+height: 70px;
+width: 20%;	
+}
+.trade-cust .calendar-bg h4{
+top: 40%;
+left: 100px;
+text-align: left;	
+}
+
+}
+
+
+/*iPhone 6 Plus Landscape*/
+@media (min-width: 735px) and (max-width: 737px) {
+.trade-btm .col-sm-8.pull-right{
+width:100% !important;	
+}	
+
+.ind-side#sidebar h4{
+padding: 14px 0px 12px 0px;
+text-align: center;	
+}
+.page-template-page-about .client-logos img{
+max-height: 45px;	
+}
+.tax-solutions_categories #content article{
+height: 400px;	
+}
+a.more-btm{
+margin: 10px auto 5px;	
+}
+.blurbb{
+height: 60px;	
+}	
+.pdf-btn::after{
+width: 20px;
+height: 40px;
+font-size: 22px;
+top: 8px;
+}
+.pdf-btn{
+padding: 10px 55px 10px 15px;
+margin-top: 16px;
+display: table;
+border-radius: 5px;
+font-size: 12px;	
+}
+.tag-img-top img{
+width: 20%;	
+}
+.tag-img-top p{
+width: 45%;
+margin: 10px 0px 25px;	
+}
+.tag .client-logos div{
+width: 20%;	
+}
+#sidebar{
+display:none;	
+}
+.loop-sec article{
+height: 225px;
+width: 65%;
+margin: 0 auto;	
+}
+.page-template-page-clients .client-logos div{
+height: 70px;
+width: 20%;	
+}
+.trade-cust .calendar-bg h4{
+top: 40%;
+left: 100px;
+text-align: left;	
+}
+
+
+}
+
+
+/*iPad Portrait*/
+@media (min-width: 767px) and (max-width: 1023px) {
+.head-top{
+background-size: cover;	
+}
+.top-links li{
+font-size: 12px;
+padding-right: 8px;
+padding-left: 8px;
+padding-top: 0px;
+}
+.head-top .top-links a{
+font-size: 12px;	
+}
+.social-icons .lead{
+font-size: 12px;	
+}
+.head-top .social-icons a{
+font-size: 16px;	
+}
+.navbar>.container .navbar-brand, .navbar-header{
+float: none !important;
+display: table !important;
+margin: 0 auto !important;
+text-align: center !important;
+}
+ul.nav.navbar-nav.navbar-right{
+margin-top: 0px;
+float:none !important;
+display:table;
+margin: 0 auto;
+}
+.navbar-default .navbar-nav>li>a{
+padding: 5px 10px 20px !important; 
+font-size: 14px !important;
+}
+.bottom-1, .bottom-2, .bottom-3{
+height: 145px;
+}
+.btm-3 .btm-text{
+padding-left: 10px;
+padding-right: 10px;
+bottom: -70px;
+padding-bottom: 0px;		
+}
+.btm-3 .btm-text h3{
+font-size: 14px;
+}
+.btm-3 .btm-text p{
+float: none;
+display: block;
+font-size: 12px;
+}
+.btm-3 .btm-text .btn.btn-orange{
+font-size: 10px;
+margin-top: 10px;
+float: none;
+display: table;
+margin-bottom: 10px	
+}
+.btm-3:hover .btm-text{
+-moz-transform: translateX(0px) translateY(-65px);	
+-webkit-transform: translateX(0px) translateY(-65px);	
+-o-transform: translateX(0px) translateY(-65px);	
+-ms-transform: translateX(0px) translateY(-65px);	
+transform: translateX(0px) translateY(-65px);	
+}
+.trade-btm h1{
+font-size: 26px;	
+}
+.trade-btm h4{
+font-size: 14px;	
+}
+.home-news-box{
+min-height: 340px;
+padding: 10px 0px 10px;	
+}
+.color-box h4{
+font-size: 14px;	
+}
+.home-news-box ul a, .home-news-box ul a:hover{
+font-size: 10px;		
+}
+.color-box p{
+font-size: 12px;
+line-height: 1.2;	
+}
+.col-sm-4.color-box{
+width: 31%;	
+}
+.color-row .color-box:first-child{
+margin-left: 20px;	
+}
+.client-logos div{
+height: 100px;
+width: 25%;	
+}
+.big-wrap-icon{
+width: 90%;	
+}
+.above-foot .foot-icon{
+width: 16%;	
+}
+
+.footer > .container > .row > .col-sm-3{
+width: 22%;	
+}
+
+.footer .col-sm-offset-1{
+margin-left:0%;	
+}
+.footer .col-sm-2.col-sm-offset-1{
+width: 25%;
+}
+.footer address{
+font-size: 14px;	
+}
+
+.foot-links h4{
+font-size: 10px;
+font-weight: 600;	
+}
+.foot-links li{
+line-height: 1;
+padding-bottom: 5px;	
+}
+.foot-links li a{
+font-size: 10px;
+color: #fafafa;	
+}
+.ind-side#sidebar h4{
+padding: 14px 0px 12px 0px;	
+}
+.tag .ind-side#sidebar h4{
+font-size: 14px
+}
+
+.ind-side#sidebar li{
+padding: 12px 0px 12px 0px; 
+border-bottom: 1px solid #e5e5e5;
+border-top: 1px solid #fff;
+font-weight: 400;
+font-size: 12px;	
+}
+.ind-side#sidebar li a::before{
+font-size: 10px;
+padding-right: 8px;	
+}
+
+.tax-solutions_categories #content article h2, .tax-solutions_categories #content article p{
+padding-left: 10px;
+padding-right: 10px;
+font-size: 14px;	
+}
+.page-top h1{
+font-size: 20px;	
+}
+p#breadcrumbs{
+font-size: 10px;	
+}
+.pdf-btn{
+font-size: 12px;	
+}
+.pdf-btn::after{
+top: 8px;
+width: 20px;	
+}
+.loop-sec article{
+height: 245px;	
+}
+
+.tag .client-logos div{
+width: 20%;	
+} 
+.con-left h4{
+font-size: 14px;
+}
+.con-left .fa-ul{
+font-size: 12px;	
+}
+.col-sm-4.col-md-6.trade-info{
+	width: 45%;
+}
+
+.trade-right{
+padding-left: 0px;	
+}
+.trade-right h4{
+font-size: 16px;	
+}
+.trade-info h3{
+font-size: 20px;
+}
+.page-template-page-partners .client-logos div{
+height: 60px;
+width: 50%;	
+}
+h4.page-side{
+font-size: 14px;
+margin-bottom: 20px;
+}
+
+.term-fabrication-design-services .blurbb{
+	height:auto;	
+}
+span.foot-indent{
+padding-left:0px;	
+}
+}
+
+
+/*iPad Landscape & Small Desktop*/
+@media (min-width: 1024px) and (max-width: 1200px) {
+.navbar-default .navbar-nav>li>a{
+padding: 26px 10px 0 10px !important;
+font-size: 14px !important;
+}
+.navbar-brand{
+width: 240px;	
+}
+.head-top .top-links a{
+font-size: 12px;	
+}
+.top-links li{
+padding-top: 2px;	
+}
+.bottom-1, .bottom-2, .bottom-3{
+height: 190px;	
+}
+.btm-3 .btm-text{
+padding-left: 10px;
+padding-right: 10px;
+bottom: -70px;
+padding-bottom: 0px;		
+}
+.btm-3 .btm-text h3{
+font-size: 16px;	
+}
+.btm-3 .btm-text p{
+float: none;
+display: block;
+}
+.btm-3 .btm-text .btn.btn-orange{
+font-size: 10px;
+margin-top: 10px;
+float: none;
+display: table;
+margin-bottom: 10px	
+}
+.btm-3:hover .btm-text{
+-moz-transform: translateX(0px) translateY(-65px);	
+-webkit-transform: translateX(0px) translateY(-65px);	
+-o-transform: translateX(0px) translateY(-65px);	
+-ms-transform: translateX(0px) translateY(-65px);	
+transform: translateX(0px) translateY(-65px);	
+}
+#carousel-logos .carousel-control.left{
+left: -20px;
+width: 5%;	
+}
+#carousel-logos .carousel-control.right{
+right: -20px;
+width: 5%;	
+}
+.big-wrap-icon{
+width: 98%;	
+}
+.above-foot .foot-icon{
+width: 8.33%;
+padding-left: 0px;
+padding-right: 0px;
+}
+.foot-links li a{
+font-size: 10px;	
+}
+.foot-links h4{
+font-size: 12px;	
+}
+.home-news-box{
+min-height: 350px;
+padding: 10px 5px 10px;
+}
+.color-box{
+font-size: 16px;	
+}
+.home-news-box ul a, .home-news-box ul a:hover{
+font-size: 10px;	
+}
+.color-box p{
+font-size: 12px;	
+}
+.ind-side#sidebar h4{
+padding: 14px 0px 12px 0px;	
+}
+.tax-solutions_categories #content article h2, .tax-solutions_categories #content article p{
+padding-left: 10px;
+padding-right: 10px;
+font-size: 14px;	
+}
+.tag-img-top p{
+font-size: 12px;
+padding-left: 5px;
+}
+.tag-img-top p::after{
+right: 5px;
+bottom: 9px;	
+}
+
+.term-fabrication-design-services .blurbb{
+	height:auto;	
+}
+
+}
+
+
+/*EXTRAS*/
+@media (min-width: 992px) and (max-width: 1023px) {
+	
+	
+}

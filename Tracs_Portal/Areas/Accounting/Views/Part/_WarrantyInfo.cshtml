@@ -1,0 +1,32 @@
+﻿@model Tracs.Common.Models.WarrantyModel
+
+<div class="card border-light mb-3" style="width:20rem;max-width: 15rem;">
+    <div class="card-header font-weight-light cardheaderfixed">Warranty Info</div>
+    <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:120px;">
+        @if (Model == null)
+        {
+            <span>No Warranty Info available.</span>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td class="headerBasic">
+                        @Html.DisplayNameFor(model => model.ShippingDateStr):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ShippingDateStr)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="headerBasic">
+                        @Html.DisplayNameFor(model => model.ManufactureDateStr):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ManufactureDateStr)
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,14 @@
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\bin\Debug\netcoreapp2.2\TracsBusinessLogic.deps.json
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\bin\Debug\netcoreapp2.2\TracsBusinessLogic.runtimeconfig.json
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\bin\Debug\netcoreapp2.2\TracsBusinessLogic.runtimeconfig.dev.json
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\bin\Debug\netcoreapp2.2\TracsBusinessLogic.dll
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\bin\Debug\netcoreapp2.2\TracsBusinessLogic.pdb
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\bin\Debug\netcoreapp2.2\Tracs.Common.dll
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\bin\Debug\netcoreapp2.2\Tracs.Common.pdb
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\obj\Debug\netcoreapp2.2\TracsBusinessLogic.csprojAssemblyReference.cache
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\obj\Debug\netcoreapp2.2\TracsBusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\obj\Debug\netcoreapp2.2\TracsBusinessLogic.AssemblyInfoInputs.cache
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\obj\Debug\netcoreapp2.2\TracsBusinessLogic.AssemblyInfo.cs
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\obj\Debug\netcoreapp2.2\TracsBusinessLogic.csproj.CopyComplete
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\obj\Debug\netcoreapp2.2\TracsBusinessLogic.dll
+C:\Users\igor\source\repos\Tracs_Portal\TracsBusinessLogic\obj\Debug\netcoreapp2.2\TracsBusinessLogic.pdb

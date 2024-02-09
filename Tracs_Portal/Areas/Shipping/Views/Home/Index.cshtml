@@ -1,0 +1,168 @@
+﻿@using Tracs.Common.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+        #layoutBody {
+            background: white;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        nav a {
+            color: red
+        }
+
+        .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+            color: #fff;
+            background-color: red;
+        }
+
+        .table-bordered {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #ccc;
+            transform: translate(0, 0);
+        }
+    </style>*@
+<style>
+    th {
+        background: #ccc;
+        transform: translate(0, 0);
+    }
+</style>
+
+@{
+    ViewBag.Shipping = true;
+    ViewBag.QueryMode = (ViewBag.QueryMode ?? false);
+    string is_asterik = ViewBag.QueryMode ? ": " : "*";
+    var IsMobile = ViewBag.IsMobile ?? false;
+    var SubmitButtonWidth = IsMobile ? "45%" : "20%";
+}
+
+<head>
+    <link rel='stylesheet' id='bootstrap-css-css' href='~/WordPress/themes//css/bootstrap.min.css?ver=3.3.4' type='text/css' media='all' />
+    <link rel='stylesheet' id='jquery-ui-css-css' href='~/WordPress/plugins/jquery-ui.css?ver=4.9.7' type='text/css' media='all' />
+    <script type='text/javascript' src='~/WordPress/themes//js/bootstrap.min.js'></script>
+    <link type="text/css" media="all" href="~/js/Custom/TableSort/css/styles.css" rel="stylesheet">
+    @*<link href="~/content/ParabitStyles/css/jquery.dataTables.css" rel="stylesheet" />*@
+
+    <script src="~/js/Custom/TableSort/js/jquery.tablesorter.min.js"></script>
+</head>
+<head>
+    <script src="~/js/Custom/ParabitScripts/loading-bar.js"></script>
+    <script src="~/js/Custom/ParabitScripts/progressbar.js"></script>
+    <script src="~/js/Custom/ParabitScripts/sortable.js"></script>
+    <script src="~/js/Custom/ParabitScripts/jquery.dataTables.min.js"></script>
+</head>
+
+
+<div id="ld-bar-container" class="loading-container center" style="width:60%;border:none;">
+    <div class=''>
+        <div id="ldBar" data-value="50"
+             class='ldBar'
+             style="height:15%;width:15%"
+             data-type="stroke"
+             data-stroke-width="8"
+             data-stroke-trail="#000000"
+             data-stroke-trail-width="3"
+             data-stroke="data:ldbar/res,gradient(0,1,#FBF9F9,#DC6E1C)"
+             data-path="m48.451835,9.83544l-34.718925,250.164563l36.728527,0l28.043553,-206.819661c0,0 108.49402,0 115.623737,0c7.126222,0 19.365569,0.379807 16.125742,22.152543c-3.107019,21.734329 4.019203,52.98943 -37.500913,52.98943c-41.394297,0 -85.577572,0 -85.577572,0l-6.000845,43.89114c0,0 71.108441,0 95.139781,0c24.157158,0 59.655459,-5.300223 67.875604,-78.534628c8.363437,-73.230138 -7.444263,-85.341276 -67.424754,-84.389625c-59.983986,0.938848 -128.313934,0.546239 -128.313934,0.546239z">
+        </div>
+    </div>
+    <p class="loading center" id="loading-banner">Loading</p>
+</div>
+<div id="divFilterRecords">
+    @{
+        Html.RenderPartial("FilterColumn", new List<ShippingModel>());
+    }
+</div>
+@{Html.RenderPartial("TabsView"); }
+
+
+<script>
+    $(document).ready(function () {
+        var navHeight = $("#shipNavigation").length > 0 ? $("#shipNavigation").height() : 0;
+        var max_height = ($("#divBody").height() - $("#divFilterRecords").height() - navHeight)*.75;
+        $('#divShipping').css({ 'max-height': max_height });
+        $('#divReceiving').css({ 'max-height': max_height });
+    });
+    function ValidateNumericField(e) {
+        e.value = e.value.replace(/[^0-9\.]/g, '');
+    }
+
+    var initProgressbar = generate_progressbar();
+
+
+    $(document).ready(function () {
+        var status = '@String.IsNullOrEmpty(ViewBag.LoadPageErrors)';
+        var message = '@ViewBag.LoadPageErrors';
+        if (status=='False') {
+            changeFeedbackMessage('error', message);
+        }
+
+         $('.btn-primary').css('background-color', '#F57B20');
+
+        //if (document.referrer.toLowerCase().indexOf('shippingform')>=0) {
+        //    history.pushState(null, null, window.location.href);
+        //    window.addEventListener('popstate', function () {
+        //        history.pushState(null, null, window.location.href);
+        //    });
+        //}
+        SetSearchEvents();
+        SetGridEvents();
+        $("#shipping-type").text('Receive');
+        $('a[tab-item="navReceiving"]').click();
+        var tab_item = $('a[tab-item="navReceiving"]').attr("tab-item")
+        if (!$("#" + tab_item).hasClass('active')) {
+            $("#" + tab_item).addClass("active");
+        }
+        destroy_progressbar(initProgressbar);
+    });
+    function SetSearchEvents() {
+
+        if ($("#column-list").val().toLowerCase().indexOf('number') >= 0) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+        }
+        $('#column-list').change(function (e) {
+            if ($(this).val().toLowerCase().indexOf('date') >= 0)
+                $('.search-input').attr('type', 'date')
+            else
+                $('.search-input').attr('type', 'text')
+
+        });
+        $('.search-input').keypress(function (e) {
+            if (!$("#column-list").val()) {
+                return false;
+            }
+        });
+
+        $('.search-input').on('blur focus keyup change', function (e) {
+
+            if ($.trim($(this).val()) != '')
+                $(this).siblings("button").removeAttr("disabled");
+            else
+                $(this).siblings("button").attr("disabled", "disabled");
+        });
+
+    }
+    function SetGridEvents() {
+        $('.table-bordered').tablesorter();
+        $('.shipping-container').on('scroll', function (e) {
+            var scrollTop = this.scrollTop;
+            this.querySelector('thead').style.transform = 'translateY(' + scrollTop + 'px)';
+
+        });
+        $('th').on('mousedown', function (e) {
+            if (e.button === 0) {
+                $(this).removeClass("headerSortable");
+                $(this).siblings('th:not(.nonSortable)').addClass("headerSortable");
+            }
+        });
+    }
+
+</script>

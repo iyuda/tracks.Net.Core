@@ -1,0 +1,45 @@
+﻿@model Tracs.Common.Models.CaseBasicInfoModel
+<style>
+    .headerBasic {
+        width: 50%;
+        vertical-align: top;
+    }
+</style>
+<div class="card border-light mb-3" style="min-width: 20rem;">
+    <div class="card-header font-weight-light cardheaderfixed">Basic Info</div>
+    <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:150px;">
+        @if (Model == null)
+        {
+            <span>No Case available.</span>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td class="headerBasic">
+                        @Html.DisplayNameFor(model => model.VendorPhoneNumber):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.VendorPhoneNumber)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="headerBasic">
+                        @Html.DisplayNameFor(model => model.ServiceCallDate):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ServiceCallDateStr)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="headerBasic">
+                        @Html.DisplayNameFor(model => model.RequestType):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.RequestType)
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@model TRACSPortal.Areas.Accounting.Models.AccountingCaseViewModel
+<script>
+    $(".editPart").click(function (e) {
+        $("#HiddleSelectedSerialNumber").val(this.id);
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Part/index",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formCase').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divBody').html(response);
+                $('#divBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+</script>
+<div class="card border-light mb-3">
+    <div class="card-header font-weight-light cardheaderfixed">Part List Info</div>
+    <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:350px;">
+
+        @if (Model.SelectedCase == null || Model.SelectedCase.PartListForCase == null)
+        {
+            <span>No Part available.</span>
+        }
+        else
+        {
+            if (Model.SelectedCase.PartListForCase.Count == 0)
+            {
+                <span>No Part available.</span>
+            }
+            else
+            {
+                <table class="table tbpartlist">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SelectedCase.PartListForCase[0].PartNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SelectedCase.PartListForCase[0].PartDescription)
+                            </th>
+                            <th>@Html.DisplayNameFor(model => model.SelectedCase.PartListForCase[0].SerialNumber)</th>
+                            <th>@Html.DisplayNameFor(model => model.SelectedCase.PartListForCase[0].WarrantyStatus)</th>
+                            <th>@Html.DisplayNameFor(model => model.SelectedCase.PartListForCase[0].IsSignToBilling)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SelectedCase.PartListForCase)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PartNumber, new { @class = "form-control", id = "sPartNumber" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PartDescription, new { @class = "form-control", id = "sPartDescription" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SerialNumber, new { @class = "form-control", id = "sSerialNumber" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WarrantyStatus, new { @class = "form-control", id = "sWarrantyStatus" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsSignToBilling, new { @class = "form-control", id = "sIsSignToBilling" })
+                            </td>
+                            <td>
+                                <a href="#" class="alink editPart" id='@item.SerialNumber' title="Edit Part"><i class="fa fa-edit" style='font-size:20px;color:blue'></i></a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+
+</div>
+</div>

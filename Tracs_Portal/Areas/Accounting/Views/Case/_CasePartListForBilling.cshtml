@@ -1,0 +1,65 @@
+﻿@model TRACSPortal.Areas.Accounting.Models.AccountingCaseViewModel
+
+    <div class="card border-light mb-3">
+        <div class="card-header font-weight-light cardheaderfixed">Part List Info</div>
+        <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:350px;">
+
+            @if (Model.SelectedCase == null)
+            {
+                <span>No Part available.</span>
+            }
+            else
+            {
+                if (Model.SelectedCase.PartListForAddBilling != null && Model.SelectedCase.PartListForAddBilling.Count > 0)
+                {
+                <table class="table tbpartlist">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SelectedPartsForAdd[0].PartNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SelectedPartsForAdd[0].PartDescription)
+                            </th>
+                            <th>@Html.DisplayNameFor(model => model.SelectedPartsForAdd[0].SerialNumber)</th>
+                            <th>@Html.DisplayNameFor(model => model.SelectedPartsForAdd[0].WarrantyStatus)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.SelectedCase.PartListForAddBilling.Count; i++)
+                        {
+                            <tr class="trPart" id="@Model.SelectedCase.PartListForAddBilling[i].PartNumber" style="height:5px">
+                                <td>
+                                    @Html.DisplayFor(model => Model.SelectedCase.PartListForAddBilling[i].PartNumber)
+                                    @Html.HiddenFor(model => Model.SelectedCase.PartListForAddBilling[i].PartNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.SelectedCase.PartListForAddBilling[i].PartDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.SelectedBilling.PartListForBilling[i].SerialNumber)
+                                    @Html.HiddenFor(modelItem => Model.SelectedCase.PartListForAddBilling[i].SerialNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.SelectedCase.PartListForAddBilling[i].WarrantyStatus)
+                                </td>
+                                <td style="height:5px">
+                                    <div class="custom-control custom-checkbox" style="height:5px">
+                                        @Html.CheckBoxFor(modelItem => Model.SelectedCase.PartListForAddBilling[i].IsSignToBilling, new { @class = "custom-control-input ckbPart", id = Model.SelectedCase.PartListForAddBilling[i].PartNumber, name = "CheckboxPart" })
+                                        <label class="custom-control-label" for="@Model.SelectedCase.PartListForAddBilling[i].PartNumber"></label>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                }
+                else
+                {
+                    <span>No Part available.</span>
+                }
+            }
+
+        </div>
+    </div>

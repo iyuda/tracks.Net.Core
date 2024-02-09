@@ -1,0 +1,208 @@
+﻿@model TRACSPortal.Areas.Accounting.Models.AccountingCaseViewModel
+<style>
+    .tbbillinglist tbody {
+        overflow: auto;
+        width: 100%;
+    }
+
+    .tbpartlist tbody tr {
+        line-height: 9px;
+        table-layout: fixed;
+    }
+
+    .tbbillinglist thead tr {
+        background-color: #dfdede;
+        border-color: #e67e22;
+        vertical-align: text-top;
+        line-height: 1px;
+        color: #4d4c4c;
+        font-size: 11px;
+    }
+</style>
+<script>
+    $(".addBilling").click(function (e) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/ShowAddBilling",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formCase').serialize(),
+            dataType: "HTML",
+            jsonp: 'jsonp',
+            async: true,
+            success: function (response) {
+                $('#divCaseAddView').html(response);
+                $('#divCaseAddView').show();
+                $("#divCaseListView").hide();
+                $("#divCaseEditView").hide();
+                $("#divCaseListView").attr('disabled', 'disabled');
+                $("#divCaseEditView").attr('disabled', 'disabled');
+
+                $("#txtPoOrderNumber").prop('required', true);
+                $("#txtPoOrderNumber").prop('pattern', '[A-Za-z0-9]{1,24}');
+                $("#txtSalesOrderNumber").prop('required', true);
+                $("#txtSalesOrderNumber").prop('pattern', '[A-Za-z0-9]{1,24}');
+                $("#txtInvoiceNumber").prop('required', true);
+                $("#txtInvoiceNumber").prop('pattern', '[A-Za-z0-9]{1,24}');
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+
+    $(".editBilling").click(function (e) {
+        $("#HiddleSelectedBillingId").val(this.id);
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/GetBillingDetails",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formCase').serialize(),
+            dataType: "HTML",
+            jsonp: 'jsonp',
+            async: true,
+            success: function (response) {
+                $('#divCaseEditView').html(response);
+                $('#divCaseEditView').show();
+                $("#divCaseListView").hide();
+                $("#divCaseAddView").hide();
+                $("#divCaseListView").attr('disabled', 'disabled');
+                $("#divCaseAddView").attr('disabled', 'disabled');
+
+                $("#txtPoOrderNumberEdit").prop('required', true);
+                $("#txtPoOrderNumberEdit").prop('pattern', '[A-Za-z0-9]{1,24}');
+                $("#txtSalesOrderNumberEdit").prop('required', true);
+                $("#txtSalesOrderNumberEdit").prop('pattern', '[A-Za-z0-9]{1,24}');
+                $("#txtInvoiceNumberEdit").prop('required', true);
+                $("#txtInvoiceNumberEdit").prop('pattern', '[A-Za-z0-9]{1,24}');
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+    $('a.btnDeleteBilling').on('click', function (e) {
+        e.preventDefault();
+        var id = $(this).closest('tr').data('id');
+        
+        $('#lblSelectedInvoiceNumber').text(id.split("~")[1]);
+        $('#deleteBillingModal').data('id', id).modal('show');
+    });
+
+    $('.deleteBilling').on('click', function (e) {
+        var idBilling = $('#deleteBillingModal').data('id');
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/DeleteBilling",
+            contentType: "application/json; charset=utf-8",
+            data: { id: idBilling },
+            dataType: "HTML",
+            jsonp: 'jsonp',
+            async: true,
+            success: function (response) {
+                $('#divCaseBillingList').html(response);
+                $('#divCaseBillingList').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+        $('#deleteBillingModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+    });
+</script>
+<div class="card border-light mb-3">
+    <div class="card-header font-weight-light cardheaderfixed">
+        <span>Billing Info</span>
+        <span style="float:right;font-weight:bolder;"><a href="#" class="addBilling" title="New Billing"><i class="fa fa-plus-circle" style="font-size:20px;color:green"></i> &nbsp;</a></span>
+    </div>
+    @if (Model.SelectedCase == null || Model.SelectedCase.BillingListForCase == null)
+    {
+        <span>No Billing available.</span>
+    }
+    else
+    {
+        if (Model.SelectedCase.BillingListForCase.Count == 0)
+        {
+            <span>No Billing available.</span>
+        }
+        else
+        {
+            <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:350px;">
+                <table class="table tbbillinglist">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SelectedCase.BillingListForCase[0].InvoiceNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SelectedCase.BillingListForCase[0].ClientRefused)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SelectedCase.BillingListForCase[0].BillingStatus)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SelectedCase.BillingListForCase)
+                        {
+                            <tr class="btnDeleteBilling" data-id="@item.BillingId~@item.InvoiceNumber~@Model.SelectedCase.CaseNumber">
+                                <td> @Html.DisplayFor(modelItem => item.InvoiceNumber)</td>
+                                <td>
+                                    @if (item.ClientRefused)
+                                    {<div>Yes</div>}
+                                    else
+                                    {<div>No</div>}
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BillingStatus)
+                                </td>
+                                <td align="right">
+                                    <a href="#" class="alink editBilling" id='@item.BillingId' title="Edit Billing"><i class="fa fa-edit" style='font-size:20px;color:blue'></i></a>
+                                    &nbsp;
+                                    <a href="#" class="alink btnDeleteBilling" id="delete~@item.BillingId" title="Delete Billing">
+                                        <i class="fa fa-trash" style='font-size:20px;color:red'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @for (int i = 0; i < Model.SelectedPartsForAdd.Count; i++)
+                {
+                    @Html.HiddenFor(item => Model.SelectedPartsForAdd[i].PartNumber)
+                    @Html.HiddenFor(item => Model.SelectedPartsForAdd[i].SerialNumber)
+                    @Html.HiddenFor(item => Model.SelectedPartsForAdd[i].PartDescription)
+                    @Html.HiddenFor(modelItem => Model.SelectedPartsForAdd[i].WarrantyStatus)
+                }
+                <!-- Modal -->
+                <div class="modal fade" id="deleteBillingModal" tabindex="-1" role="dialog" aria-labelledby="deleteBillingModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteBillingModalLabel">Delete Billing Confirming </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <span>
+                                    Are you sure you want to delete Billing (Invoice#:
+                                    <label id="lblSelectedInvoiceNumber"></label>) ?
+                                </span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary deleteBilling">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

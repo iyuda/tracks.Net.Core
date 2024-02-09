@@ -1,0 +1,23 @@
+﻿<div id="navbar-collapse-1" class="navbar-collapse collapse" aria-expanded="false" style="display:none;height: 1px;">
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a onclick="ShowUserProfile(this)" style="text-align:center">
+                <input style="width:40px;height:40px;" type="image" src="~/images/ProfileIcon@3x.png" name="btnUserProfile" class="btTxt" id="btnUserProfile" />
+                <br />
+                <label style="font-weight:bold">Profile</label>
+            </a>
+        </li>
+        <li>
+            @{
+                var url2 = Url.Action("Logoff", "Home", new { area = "Login" });
+            }
+            <a onclick="location.href='@url2'" style="text-align:center">
+                <input style="width:40px;height:40px;" type="image" src="~/images/LogoutIcon@3x.png" name="btnLogoff" class="btTxt submit" id="btnUserProfile" />
+                <br />
+                <label style="font-weight:bold">Log Off</label>
+            </a>
+        </li>
+    </ul>
+</div>
+
+

@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Registrration\**" />
+    <Content Remove="Areas\Registrration\**" />
+    <EmbeddedResource Remove="Areas\Registrration\**" />
+    <None Remove="Areas\Registrration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Accounting\Models\CaseBasicInfoModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Accounting\Views\Case\_CaseBillingInfo.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Telerik.Reporting" Version="13.1.19.618" />
+    <PackageReference Include="Telerik.Reporting.Services.AspNetCore" Version="13.1.19.618" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2019.2.619" />
+    <PackageReference Include="Wangkanai.Detection.Device" Version="2.0.0-beta11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Accounting\Ennumerations\" />
+    <Folder Include="Areas\Reports\" />
+    <Folder Include="Areas\RMATech\" />
+    <Folder Include="Areas\Registrration\Controllers\" />
+    <Folder Include="Areas\Registrration\Views\" />
+    <Folder Include="wwwroot\lib\jquery-ajax-unobtrusive\" />
+    <Folder Include="wwwroot\WordPress\plugins\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\RMATracker\Web.config" Link="Web.config" />
+    <None Include="..\RMATracker\Web.Debug.config" Link="Web.Debug.config" />
+    <None Include="..\RMATracker\Web.Release.config" Link="Web.Release.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tracs.Common\Tracs.Common.csproj" />
+    <ProjectReference Include="..\TracsBusinessLogic\TracsBusinessLogic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web.Extensions">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\System.Web.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

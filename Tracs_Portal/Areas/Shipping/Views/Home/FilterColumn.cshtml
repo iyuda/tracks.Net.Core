@@ -1,0 +1,103 @@
+﻿@using Tracs.Common.Models;
+@{
+    //Layout = null;
+    var lstColumns = new List<SelectListItem>();
+    Type T;
+    if ((ViewBag.ListType??"") == "Ship")
+    {
+        T = typeof(ShippingModel);
+    }
+    else
+    {
+        T = typeof(ReceivingModel);
+    }
+    foreach (var prop in (T.GetProperties()))
+    {
+        var displayName = prop.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).FirstOrDefault() as System.ComponentModel.DisplayNameAttribute;
+        lstColumns.Add(new SelectListItem { Text = displayName?.DisplayName ?? prop.Name, Value = prop.Name });
+    }
+}
+<div class="p-px-y5 row" style="text-align:center">
+    <div class="section1" style="width:20%"></div>
+    <div class="section1" style="width:60%">
+        <div class="col-md-5">
+            @Html.DropDownList("column-list", new SelectList(lstColumns, "Value", "Text", lstColumns.Count==1? lstColumns[0].Value:null), "-- Select Field To Search --",
+                new { @onchange = "SetColumnSearch(this)", @style = "padding:4px", @aria_invalid = "false", @aria_required = "true", @required = "", @class = "wpcf7-form-control wpcf7-select wpcf7-validates-as-required form-control" })
+        </div>
+
+
+        <div class="form-group search-value para-input-group col-md-5">
+            <input style="width:70%" id="ship-search-txt" class="search-input form-control" placeholder="Search Selected Field" spellcheck="false" aria-label="Search" type="text">
+            <button disabled class="btn btn-primary search-button" type="button" onclick="SearchGrid()" style="background-color: rgb(245, 123, 32);">
+                <span class="fa fa-search icon"></span>
+            </button>
+
+
+
+        </div>
+        <div class=" col-md-2 para-input-group">
+
+            <button id="clear-search" style="float:right;"
+                    class="btn btn-primary"
+                    onclick="ClearSearch()">
+                <span>Clear Search</span>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        SetColumnSearch($("#column-list"));
+    });
+    $("#ship-search-txt").keypress(function (event) {
+        if (event.which == 13) {
+            SearchGrid();
+        }
+    });
+    function SetColumnSearch(e) {
+        $("#ship-search-txt").val('');
+        $('#ship-search-txt').attr('type', 'text')
+        $("#ship-search-txt").attr('placeholder', $(e).val() ? "Search " + $(e).find('option:selected').text() : "Search Selected Field");
+      }
+    function ClearSearch(e) {
+        if ($('#column-list').children('option').length <= 2)
+            $("#column-list").prop('selectedIndex', 1);
+        else
+            $("#column-list").prop('selectedIndex', 0);
+          SetColumnSearch($("#column-list"));
+          SearchGrid(true);
+      }
+      function SearchGrid(reset) {
+          reset = reset || false;
+          var listType = $("#shipping-type").text(); //'@ViewBag.SubTitle'.replace('-', '').trim(); //$(".top-subheading").text();
+          var sURL = '@Url.Action("listType" + "List", "Home")';
+          if (!reset) {
+                var queryString = $.param({ SearchColumn: $("#column-list").val(), SearchValue: $("#ship-search-txt").val() });
+                sURL = sURL.replace('listType', listType) + '?' + queryString;
+          }
+          else
+                sURL = sURL.replace('listType', listType);
+                $.get(sURL)
+                .done(function (data) {
+                    var navHeight = $("#shipNavigation").length > 0 ? $("#shipNavigation").height() : 0;
+                    var max_height = ($("#divBody").height() - $("#divFilterRecords").height() - navHeight) * .75;
+                    if (listType == "Receive") {
+                        $("#divReceiveList").html(data);
+                        $('#divReceiving').css({ 'max-height': max_height });
+                    }
+                    else {
+                        $("#divShipList").html(data);
+                        $('#divShipping').css({ 'max-height': max_height });
+                    }
+                    SetGridEvents();
+                    
+                })
+                .fail(function (error) {
+                    changeFeedbackMessage('error', error);
+            });
+
+
+
+    }
+
+</script>

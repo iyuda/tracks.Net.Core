@@ -1,0 +1,11 @@
+C:\Users\igor\source\repos\Tracs_Portal\TestKendoWeb\bin\Debug\netcoreapp2.0\TestKendoWeb.deps.json
+C:\Users\igor\source\repos\Tracs_Portal\TestKendoWeb\bin\Debug\netcoreapp2.0\TestKendoWeb.runtimeconfig.json
+C:\Users\igor\source\repos\Tracs_Portal\TestKendoWeb\bin\Debug\netcoreapp2.0\TestKendoWeb.runtimeconfig.dev.json
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\bin\Debug\netcoreapp2.0\TestKendoWeb.dll
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\bin\Debug\netcoreapp2.0\TestKendoWeb.pdb
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\obj\Debug\netcoreapp2.0\TestKendoWeb.csprojAssemblyReference.cache
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\obj\Debug\netcoreapp2.0\TestKendoWeb.csproj.CoreCompileInputs.cache
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\obj\Debug\netcoreapp2.0\TestKendoWeb.AssemblyInfoInputs.cache
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\obj\Debug\netcoreapp2.0\TestKendoWeb.AssemblyInfo.cs
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\obj\Debug\netcoreapp2.0\TestKendoWeb.dll
+C:\Users\igor\Source\Repos\Tracs_Portal\TestKendoWeb\obj\Debug\netcoreapp2.0\TestKendoWeb.pdb

@@ -1,0 +1,192 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+@{var IsMobile = ViewBag.IsMobile ?? false;
+    var style = IsMobile ? "" : "height:75px"; }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>@ViewBag.Title | Parabit Systems</title>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-datepicker.js"></script>
+
+    <script src="~/js/site.js"></script>
+    <script src="~/js/accounting.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/css/Custom/shared/examples.css" rel="stylesheet" />
+    <link href="~/lib/kendo/css/web/kendo.common-material.min.css" rel="stylesheet" />
+    <link href="~/lib/kendo/css/web/kendo.rtl.min.css" rel="stylesheet" />
+    <link href="~/lib/kendo/css/web/kendo.material.min.css" rel="stylesheet" />
+    <link href="~/lib/kendo/css/web/kendo.material.mobile.min.css" rel="stylesheet" />
+    @*<script src="~/lib/kendo/js/jquery.min.js"></script>*@
+    <script src="~/lib/kendo/js/kendo.all.min.js"></script>
+    <script src="~/lib/kendo/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/lib/Kendo/js/kendo.timezones.min.js"></script>
+    <link rel="stylesheet" href="~/css/Custom/ParabitStyles/css/parabit_styles.css" />
+    <link rel="stylesheet" href="~/css/Custom/toastr.css" />
+    <link rel="shortcut icon" href="~/images/favicon.ico" />
+    <link href="~/WordPress/themes/css/animate.css" rel="stylesheet" type="text/css">
+    <link href="~/WordPress/themes/style.css" rel="stylesheet" type="text/css">
+    <link href="~/WordPress/themes/responsive.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic|Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    @*<link rel='stylesheet' id='bootstrap-css-css' href='~/WordPress/themes/css/bootstrap.min.css?ver=3.3.4' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-css-css' href='~/WordPress/plugins/jquery-ui.css?ver=4.9.7' type='text/css' media='all' />
+        <script type='text/javascript' src='~/WordPress/themes/js/bootstrap.min.js'></script>*@
+
+    <style type="text/css">
+        .recentcomments a {
+            display: inline !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    </style>
+    <style type="text/css">
+        .ui-widget-content {
+            border: none !important;
+        }
+    </style>
+
+</head>
+<body id="divWrapBody">
+    <input type="hidden" id="IsMobile" tag="@IsMobile" />
+    <div id="navigation" style="background-color:#ddd;vertical-align:bottom;z-index:100;">
+        <a href="https://parabit.com">
+            <span class="svg-logo">
+                <object data="~/WordPress/themes/img/parabit-logo.svg" type="image/svg+xml" style="@style">
+                    <img src="~/WordPress/themes/img/logo.png" />
+                </object>
+            </span>
+        </a>
+        <span style="float:right;vertical-align:bottom;width:15%">
+            @*@{Html.RenderPartial("Settings.cshtml");}*@
+            @*@{
+                    var url2 = Url.Action("Logoff", "Home", new { area = "Login" });
+                }
+                <a onclick="location.href='@url2'" style="text-align:center;vertical-align:bottom;">
+                    <input style="width:40px;height:40px;" type="image" src="~/images/LogoutIcon@3x.png" name="btnLogoff" class="btTxt submit" id="btnUserProfile" />
+                    <label style="font-weight:bold">Log Off</label>
+                </a>*@
+        </span>
+
+    </div>
+    <div class="wrapper" style="height:700px;float:left">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h4>TRACS PORTAL</h4>
+            </div>
+            <ul class="list-unstyled components">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                <li><a asp-area="RMATech" asp-controller="Home" asp-action="Index">RMATech</a></li>
+                <li><a asp-area="Accounting" asp-controller="Home" asp-action="Index">Accounting</a></li>
+
+                <li><a asp-area="Shipping" asp-controller="Home" asp-action="Index">Shipping</a></li>
+            </ul>
+            <ul class="list-unstyled components">
+                <li><a asp-area="" asp-controller="Home" asp-action="ShowUserProfile">User Profile</a></li>
+                <li><a asp-area="Login" asp-controller="Home" asp-action="Logoff">Log Off</a></li>
+            </ul>
+
+        </nav>
+    </div>
+    @{var ShippingType = (ViewBag.SubTitle ?? "").ToString().Replace("-", "").Trim(); }
+    @{var overflowType = (ViewBag.Shipping ?? false) ? "auto" : "auto";}
+
+    <label style="display:none" id="shipping-type">@ShippingType</label>
+    <div class="container body-content" style="width:71%">
+        <div style="overflow:@overflowType;height:680px;" id="divBody">
+            @RenderBody()
+        </div>
+        <hr />
+        <footer style="  text-align: center;  ">
+            <p style="font-size:medium;font-weight:normal">&copy; @DateTime.Now.Year TRACS SYSTEM V.@GetType().Assembly.GetName().Version.ToString()</p>
+        </footer>
+    </div>
+
+
+    @*<div class="modal fade" id="divUserProfile" tabindex="-1" role="dialog" aria-labelledby="UserProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UserProfileModalLabel">User Profile </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @{
+                        byte[] byteIsTechnician;
+                        Context.Session.TryGetValue("IsTechnician", out byteIsTechnician);
+                        bool IsTechnician = byteIsTechnician == null ? false : System.Text.Encoding.Default.GetString(byteIsTechnician) == "1" ? true : false;
+                        @Html.RenderAction("UserProfileGet", "Home", new { IsTechnician = IsTechnician })
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary ">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="divChangePassword" tabindex="-1" role="dialog" aria-labelledby="ChangePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ChangePasswordModalLabel">Change Password </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.RenderAction("PasswordChangeGet", "Home", new { area = "" })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary ">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <div id="divUserProfile" style="overflow-x:hidden;border:solid;display:none">
+        @{
+            byte[] byteIsTechnician;
+            Context.Session.TryGetValue("IsTechnician", out byteIsTechnician);
+            bool IsTechnician = byteIsTechnician == null ? false : System.Text.Encoding.Default.GetString(byteIsTechnician) == "1" ? true : false;
+            @Html.RenderAction("UserProfileGet", "Home", new { IsTechnician = IsTechnician })
+        }
+    </div>
+    <div id="divChangePassword" style="border:solid;display:none;">
+        @Html.RenderAction("PasswordChangeGet", "Home", new { area = "" })
+
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+<script src="~/js/Custom/toastr.js"></script>
+<script src="~/js/Custom/ParabitScripts/toastr_alert.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#IsMobile").val('@IsMobile');
+
+    });
+</script>
+<script src="~/js/Custom/ParabitScripts/fix_zoom.js"></script>
+<script src="~/js/Custom/ParabitScripts/error_handling.js"></script>
+<script>
+    JSErrorHandler('@Url.Action("JSErrorHandler", "Error", new { area = String.Empty })');
+</script>

@@ -1,0 +1,47 @@
+﻿@model Tracs.Common.Models.SiteInfoModel
+<style>
+    .headerAddress {
+        width: 30%;
+        vertical-align: top;
+    }
+</style>
+<div class="card border-light mb-3" style="max-width: 35rem;">
+    <div class="card-header font-weight-light cardheaderfixed">Address Info</div>
+    <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:150px;">
+        @if (Model == null)
+        {
+            <span>No Site Info available.</span>
+        }
+        else
+        {
+            <table id="tbAddressInfo">
+                <tr>
+                    <td class="headerAddress">
+                        @Html.DisplayNameFor(model => model.ReturnAddress):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.ReturnAddress)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="headerAddress">
+                        @Html.DisplayNameFor(model => model.SiteName):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.SiteName)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="headerAddress">
+                        @Html.DisplayNameFor(model => model.SiteAddress):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.SiteAddress)
+                    </td>
+                </tr>
+          
+            </table>
+        }
+
+    </div>
+</div>

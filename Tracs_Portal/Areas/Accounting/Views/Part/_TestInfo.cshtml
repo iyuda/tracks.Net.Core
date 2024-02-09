@@ -1,0 +1,31 @@
+﻿@model Tracs.Common.Models.TestInfoModel
+<div class="card border-light mb-3" style="width:20rem;max-width: 15rem;">
+    <div class="card-header font-weight-light cardheaderfixed">Test Info</div>
+    <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:120px;">
+        @if (Model == null)
+        {
+            <span>No Test Info available.</span>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td class="headerBasic">
+                        @Html.DisplayNameFor(model => model.TestDateStr):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TestDateStr)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="headerBasic">
+                        @Html.DisplayNameFor(model => model.TestResultDescription):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.TestResultDescription)
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

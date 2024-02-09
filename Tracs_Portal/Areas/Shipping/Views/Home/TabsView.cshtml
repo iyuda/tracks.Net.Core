@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.LoginFailed = (ViewBag.LoginFailed ?? false);
+    ViewBag.HideLogin = (ViewBag.HideLogin ?? false);
+    ViewBag.Title = "Shipping";
+    var IsMobile = ViewBag.IsMobile ?? false;
+    var w50Class = IsMobile ? "" : "";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+        <div class="container1" style="width:100%">
+            <br />
+            <div class="">
+                <ul id="shipNavigation" class="nav nav-pills" role="tablist">
+                    <li style="width:50%;text-align: center;font-size:larger" id="navReceiving" class="active nav-item" role="presentation"><a data-toggle="tab" tab-item="navReceiving" href="#edit-receiving" aria-controls="edit-receiving" aria-selected="true">Receive</a></li>
+                    <li style="width:49%;text-align: center;font-size:larger" id="navShipping" class="nav-item" role="presentation"><a data-toggle="tab" tab-item="navShipping" href="#edit-shipping" aria-controls="edit-shipping" aria-selected="false">Ship</a></li>
+                </ul>
+                <br /><br />
+                <div class="tab-content">
+                    <div class="tab-pane active in @w50Class" aria-labelledby="edit receiving" role="tabpanel" id="edit-receiving">
+                        <div class="p-px-y10" id="divReceiveList">
+                            @{Html.RenderAction("ReceiveList", "Home");}
+                        </div>
+                    </div>
+                    <div class="tab-pane in" id="edit-shipping" role="tabpanel">
+                        <div class="p-px-y10"id="divShipList">
+                            @{Html.RenderAction("ShipList", "Home");}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+
+        </div>
+
+
+
+</html>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+
+
+<script>
+    
+    $('a[data-toggle="tab"]').on('shown.bs.tab show.bs.tab', function (e) {
+        var tab_item = $(e.target).attr("tab-item")
+        $('a[data-toggle="tab"]').parent().removeClass("active");
+        if (!$("#" + tab_item).hasClass('active')) {
+            $("#" + tab_item).addClass("active");
+        }
+    });
+
+    $('a[data-toggle="tab"]').on('click', function (e) {
+        var tab_text = $(e.target).text();
+        var $parentItem = $(this).parent();
+        $("#shipping-type").text(tab_text);
+        //$("#page-title").text('RMA Shipping - ' + tab_text);
+        $('a[data-toggle="tab"]').parent().removeClass("active");
+        var queryString = $.param({ ListType: $("#shipping-type").text() });
+        var sURL = '@Url.Action("FilterColumn", "Home")' + '?' + queryString;
+        var initProgressbar = generate_progressbar();
+        $.get(sURL)
+            .done(function (data) {
+                $("#divFilterRecords").html(data); 
+                $('.btn-primary').css('background-color', '#F57B20')
+                SetSearchEvents();
+                SearchGrid(true);
+                $parentItem.addClass("active");
+                destroy_progressbar(initProgressbar);
+            })
+            .fail(function (error) {
+                changeFeedbackMessage('error', error);
+                destroy_progressbar(initProgressbar);
+            });
+
+
+    });
+    
+</script>

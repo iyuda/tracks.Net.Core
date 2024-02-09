@@ -1,0 +1,100 @@
+﻿@using TRACSPortal.Areas.Accounting.Models
+@model AccountingHomeViewModel
+<Style>
+    .fixed_header tbody {
+        display: block;
+        overflow: auto;
+        height: 530px;
+        width: 100%;
+    }
+        .fixed_header tbody tr {
+            line-height: 10px;
+            display: table;
+            table-layout: fixed;
+        }
+    .fixed_header thead tr {
+        display: block;
+        background-color: #f39c12;
+        border-color: #e67e22;
+        vertical-align: text-top;
+        line-height: 10px;
+    }
+</Style>
+<script>
+    $(".detailCase").click(function (e) {
+        $("#HiddleSelectedCaseId").val(this.id);
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/Index",
+            contentType: "application/json; charset=utf-8",
+            data: $('#form1').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+               
+                $('#divBody').html(response);
+                $('#divBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+</script>
+@if (Model.CaseList == null)
+{
+    <span>Please select the search type for searching cases.</span>
+}
+else
+{
+    if (Model.CaseList.Count == 0)
+    {
+        <span>No Case available.</span>
+    }
+    else
+    {
+        <div class="container grid-striped">
+            <div class="panel-heading">
+                <h4>
+                    Case List
+                </h4>
+            </div>
+            <table class="table fixed_header" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width:40%">
+                            @Html.DisplayNameFor(model => model.CaseList[0].CaseNumber)
+                        </th>
+                        <th style="width:20%;text-align:left;">@Html.DisplayNameFor(model => model.CaseList[0].ReceivedDate)</th>
+                        <th style="width:20%;text-align:left;">@Html.DisplayNameFor(model => model.CaseList[0].ClientType)</th>
+                        <th style="width:20%;text-align:left;">@Html.DisplayNameFor(model => model.CaseList[0].CaseStatusStr)</th>
+                        <th style="width:20%;text-align:left;">Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CaseList)
+                    {
+                    <tr>
+                        <td style="width:40%">
+                            @Html.DisplayFor(modelItem => item.CaseNumber)
+                        </td>
+                        <td style="width:20%;text-align:left;">
+                            @Html.DisplayFor(modelItem => item.ReceivedDateStr, new { @class = "datefield form-control" })
+                        </td>
+                        <td style="width:20%;text-align:left;">
+                            @Html.DisplayFor(modelItem => item.ClientType)
+                        </td>
+                        <td style="width:20%;text-align:left;">
+                            @Html.DisplayFor(modelItem => item.CaseStatusStr)
+                        </td>
+                        <td style="width:20%;text-align:left;">
+                            <a href="#" class="alink detailCase" id="@item.CaseNumber" title="Case Details"><i class="fa fa-file-text-o" style='font-size:20px;color:blue'></i></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}

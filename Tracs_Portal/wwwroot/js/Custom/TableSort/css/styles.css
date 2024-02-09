@@ -1,0 +1,37 @@
+
+
+thead {
+    cursor: pointer;
+    background: #c9dff0;
+}
+thead tr th { 
+  font-weight: bold;
+  padding: 12px 30px;
+  padding-left: 42px;
+}
+thead tr th span { 
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
+thead tr th.headerSortUp, thead tr th.headerSortDown {
+  background: #acc8dd;
+}
+
+thead tr th.headerSortUp span {
+  
+  background-image: url('down-arrow.png');
+}
+thead tr th.headerSortDown span {
+  background-image: url('up-arrow.png');
+}
+thead tr th.nonSortable span {
+    background-image: none;
+}
+thead tr th.headerSortable span {
+    background-image: url("data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==");
+    background-position:right;
+}
+
+

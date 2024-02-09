@@ -1,0 +1,40 @@
+﻿@using TRACSPortal.Areas.Accounting.Models
+@model AccountingHomeViewModel
+
+<div id="divSearchCase">
+<form method="POST" id="form1" enctype="multipart/form-data">
+    <label class="custom-control-inline h-30" style="vertical-align:text-bottom">Search Case By:</label>
+    <div class="custom-control custom-radio custom-control-inline h-30" style="vertical-align:text-bottom">
+        <label class="custom-control-inline h-30">
+            @Html.RadioButtonFor(m => m.SelectedRadioSearch, "1", Model.SelectedRadioSearch == "1" ? new { id = "RadioSearch1", @class = "custom-control-input custom-radio" } : null)
+            &nbsp;Case ID
+        </label>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline h-30" style="vertical-align:text-bottom">
+        <label class="custom-control-inline h-30">@Html.RadioButtonFor(m => m.SelectedRadioSearch, "2", Model.SelectedRadioSearch == "2" ? new { id = "RadioSearch2", @class = "custom-control-input custom-radio" } : null) &nbsp;Bank</label>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline h-30" style="vertical-align:text-bottom">
+        <label class="custom-control-inline h-30">@Html.RadioButtonFor(m => m.SelectedRadioSearch, "3", Model.SelectedRadioSearch == "3" ? new { id = "RadioSearch3", @class = "custom-control-input custom-radio" } : null) &nbsp;Date</label>
+    </div>
+
+    <div class="custom-control-inline" style="width:100px;height:30px;vertical-align:text-bottom"></div>
+
+    <div class="custom-control-inline h-30" style="width:300px;height:30px;vertical-align:text-bottom">
+        <div id="divSearch1" class="searchType custom-control-inline h-30">
+            <input id="txtSearch1" type="text" asp-for="SearchKeyWord" class="form-control" placeholder="Please input Case ID" style="width:300px;height:30px;font-size:12px;" required />
+        </div>
+        <div id="divSearch2" class="searchType custom-control-inline h-30">
+            @Html.DropDownListFor(m => m.SelectedBankId, Model.Banks, new { @class = "form-control", style = "width:300px;height:30px;font-size:12px", id = "ddlList" })
+        </div>
+        <div id="divSearch3" class="searchType custom-control-inline h-30">
+            <span style="font-size:11px;">From</span><input type="text" asp-for="FromDate" class="form-control" id="datepickerFrom" placeholder="MM/DD/YYYY" style="width:110px;height:30px;font-size:12px;" />&nbsp;
+            <span style="font-size:11px;">To</span><input type="text" asp-for="ToDate" class="form-control" id="datepickerTo" placeholder="MM/DD/YYYY" style="width:110px;height:30px;font-size:12px;" />
+        </div>
+    </div>
+    <div class="custom-control-inline" style="float:right;vertical-align:text-bottom">
+        <button type="button" class="btn btn-primary btnSearch" id="searchButton"><i class="fa fa-search" style='font-size:20px;color:orangered'></i></button>
+        <input type="hidden" id="selectedRaido" data-value="@ViewBag.SelectedSearchBy" />
+    </div>
+
+</form>
+</div>

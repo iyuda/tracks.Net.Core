@@ -1,0 +1,56 @@
+﻿@model TRACSPortal.Areas.Accounting.Models.AccountingPartViewModel
+
+<div class="card border-light mb-3" style="width:20rem;max-width: 20rem;">
+    <div class="card-header font-weight-light cardheaderfixed">Basic Info</div>
+    <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:120px;">
+        @if (Model != null && Model.SelectedPart != null && Model.SelectedPart.PartNumber != null)
+        {
+        <table>
+            <tr>
+                <td class="headerBasic">
+                    @Html.DisplayNameFor(model => model.SelectedPart.SerialNumber):
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SelectedPart.SerialNumber)
+                </td>
+            </tr>
+            <tr>
+                <td class="headerBasic">
+                    @Html.DisplayNameFor(model => model.SelectedPart.PartNumber):
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SelectedPart.PartNumber)
+                </td>
+            </tr>
+            <tr>
+                <td class="headerBasic">
+                    @Html.DisplayNameFor(model => model.SelectedPart.PartDescription):
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SelectedPart.PartDescription)
+                </td>
+            </tr>
+            <tr>
+                <td class="headerBasic">
+                    @Html.DisplayNameFor(model => model.SelectedPart.PartFamily):
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SelectedPart.PartFamily)
+                </td>
+            </tr>
+            <tr>
+                <td class="headerBasic">
+                    @Html.DisplayNameFor(model => model.SelectedPart.ReplacementSerialNumber):
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.SelectedPart.ReplacementSerialNumber)
+                </td>
+            </tr>
+        </table>
+        }
+        else
+        {
+            <span>No Part available.</span>
+        }
+    </div>
+</div>

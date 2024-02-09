@@ -1,0 +1,166 @@
+﻿@using Tracs.Common.Models;
+@model List<ReceivingModel>
+    <style></style>
+    <fieldset>
+        <div id="divReceiving" style="width:100%;overflow-y: auto;margin:0 auto" class="shipping-container">
+            <table style="width:100%;border-color:black;border:solid;" class="center table table-striped table-bordered" id="tblReceive">
+                <thead class="shipping-grid-head" >
+                    <tr style="background-color:#eee;border-color:black;">
+                        <th class="headerSortable" style="border-color:black;text-align:center"><span>Case ID</span></th>
+                        <th class="headerSortable" style="border-color:black;text-align:center"><span>Tech Name</span></th>
+                        <th class="headerSortable" style="border-color:black;text-align:center"><span>Tech E-mail</span></th>
+                        <th class="headerSortable" style="border-color:black;text-align:center"><span>Tech Number</span></th>
+                        <th class="headerSortable" style="border-color:black;text-align:center"><span>Date Submitted</span></th>
+                        <th class="nonSortable" style="border-color:black;text-align:center"><span>Receive</span></th>
+                    </tr>
+                </thead>
+                <tbody class="shipping-grid-body">
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                var searchColumn = ViewBag.SearchColumn;
+                                var searchValue = ViewBag.SearchValue;
+                                if (!String.IsNullOrEmpty(searchColumn) && !String.IsNullOrEmpty(searchValue))
+                                {
+                                    string currentValue = item.GetType().GetProperty(searchColumn).GetValue(item, null)?.ToString();
+
+                                    if (!String.IsNullOrEmpty(currentValue))
+                                    {
+                                        if (searchColumn.ToLower().Contains("number"))
+                                        {
+                                            currentValue = new String(currentValue.Where(Char.IsDigit).ToArray()).ToString();
+                                        }
+                                        if (!searchColumn.ToLower().Contains("date"))
+                                        {
+                                            if (!(currentValue.ToLower().Contains(searchValue.ToLower())))
+                                            {
+                                                continue;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (DateTime.Parse(currentValue).Date != DateTime.Parse(searchValue).Date)
+                                            {
+                                                continue;
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        if (!(currentValue == searchValue))
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                }
+                                <tr id="receive_case_@item.RMAId.ToLower()">
+                                    <td style="text-align:center;vertical-align:middle">@item.RMAId</td>
+                                    <td style="text-align:center;vertical-align:middle">@item.UserName</td>
+                                    <td style="text-align:center;vertical-align:middle">@item.Email</td>
+                                    <td style="text-align:center;vertical-align:middle">@item.UserPhoneNumber</td>
+                                    @{var DateSubmitted = DateTime.Parse(item.DateSubmitted).ToString("yyyy-MM-dd");}
+                                    <td style="text-align:center;vertical-align:middle">@DateSubmitted</td>
+                                    <td style="text-align:center;vertical-align:middle">
+                                        <input onclick="ShowReceiveDialog('@item.RMAId')" style="width:40px;height:40px;" type="image" src="~/images/checked-checkbox-filled.png" name="imgReceive" class="btTxt" id="imgReceive" autocomplete="none">
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div class="container" style="border-top:none">
+
+            </div>
+        </div>
+
+    </fieldset>
+<script>
+   
+    function ShowReceiveDialog(case_id) {
+            var message = '<p style="color:black; font-weight:bold; font-size:x-large;padding-top:30px">Receive the Package</p>';
+        var html = '<br /><br /> <input onkeyup="ValidateCaseID()" style ="text-align:center; width:30%; margin-right:auto; margin-left:auto;text-transform: uppercase;" maxlength="6" autofocus = "" class="form-control" id = "txtReceiveCaseID" name = "CaseID" placeholder = "Case ID" required = "" type = "text" >';
+
+            html += '<input hidden id = "txtOrigReceiveCaseID" value= \'' + case_id + '\' >';
+            html += '<br /><br /><br /><button style ="width:30%;" id="btnReceive"  onclick = "ReceiveItem()" type = "button" class="para-btn clear" > Receive </button > ';
+            changeToTapToDismissWithClose(); 
+            changeFeedbackMessage('none', message, '', html,true);
+    }
+    function CloseReceiveDialog(case_id) {
+        
+        $(".toast-close-button").click();
+    }
+    function ReceiveItem() {
+        var orig_case_id = $("#txtOrigReceiveCaseID").val();
+        if (!ValidateCaseID(orig_case_id))
+            return;
+        var case_id = $("#txtReceiveCaseID").val();
+        var queryString = $.param({ RmaID: case_id });
+        var sURL = '@Url.Action("ReceiveItem", "Home")' +  '?' + queryString;
+        $.get(sURL)
+            .done(function (data) {
+                var message = data.message;
+                if (data.status == '1') {
+                    message = '<p>' + message + '<p>' + orig_case_id;
+                    $('#receive_case_' + case_id.toLowerCase()).remove();
+                    CloseReceiveDialog();
+                    changeToStandardToastr();
+                    changeFeedbackMessage('success', message);
+                }
+                else {
+                    ShowReceiveCaseIDError(message);
+                    //changeFeedbackMessage('error', data.message);
+                }
+            })
+            .fail(function (error) {
+                changeFeedbackMessage('error', error);
+            });
+    }
+    function ValidateCaseID(orig_case_id) {
+        if (orig_case_id) {
+            if ($("#txtReceiveCaseID").val().trim().toLowerCase() != orig_case_id.toLowerCase()) {
+                ShowReceiveCaseIDError('Incorrect Case ID!');
+                return false;
+            }
+            return true;
+        }
+        if ($("#txtReceiveCaseID").val().trim() == "") {
+            ShowReceiveCaseIDError('Case ID Not Entered!');
+            $("#btnReceive").attr("disabled", "disabled");
+            return false;
+        }
+        else {
+            $('.case-id-error').remove();
+            $("#btnReceive").removeAttr("disabled");
+            return true;
+        }
+
+        //if ($("#txtReceiveCaseID").val().trim() != "")
+        //    $("#btnReceive").removeAttr("disabled");
+        //else
+        //    $("#btnReceive").attr("disabled", "disabled");
+
+    }
+
+    function ShowReceiveCaseIDError(errorMsg) {
+        $('.case-id-error').remove();
+        var $lblError = $("<label  style='border:none;color:red;text-align:center;  margin-right:auto; margin-left:auto;' class='case-id-error form-control'>");
+        $lblError.css("background-color", $("#txtReceiveCaseID").parent().css("background-color"));
+        $lblError.text(errorMsg);
+        $lblError.insertAfter($("#txtReceiveCaseID"));
+    }
+
+  </script>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,110 @@
+﻿@model TRACSPortal.Areas.Accounting.Models.AccountingCaseViewModel
+<script>
+    var rmaNumber = $("#hiddenRMANumber").val();
+    if (rmaNumber == null || rmaNumber == "") {
+        $("#divEditRMANumber").hide();
+        $("#divAddRMANumber").show();
+        $("#cancelEditRMANumber").hide();
+    }
+    else {
+        $("#divEditRMANumber").show();
+        $("#divAddRMANumber").hide();
+    }
+    $(".btnAddRMANumber").click(function (e) {
+        var $form = $(this.form);
+        $form[0].classList.add('was-validated');
+        if ($form[0].checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        var rma = $("#txtNewRMANumber").val();
+        $("#hiddenRMANumber").val(rma);
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/AddRMANumber",
+            contentType: "application/json; charset=utf-8",
+            data: { caseid: $("#hiddenCaseId").val(), id: rma},
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divCaseRMAInfo').html(response);
+                $('#divCaseRMAInfo').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+    $("#txtNewRMANumber").prop('required', true);
+    $("#txtNewRMANumber").prop('pattern', '[A-Za-z0-9]{1,24}');
+    $(".btnEditRMANumber").click(function (e) {
+        var rma = $("#hiddenRMANumber").val();
+        $("#txtNewRMANumber").val(rma);
+        $("#divEditRMANumber").hide();
+        $("#divAddRMANumber").show();
+        $("#cancelEditRMANumber").show();
+    });
+    $(".btnCancelRMANumber").click(function (e) {
+        $("#divEditRMANumber").show();
+        $("#divAddRMANumber").hide();
+    });
+</script>
+<form method="POST" id="formRMA" name="formRMA" enctype="multipart/form-data">
+    <div class="card border-light mb-3" style="width:15rem;">
+        <div class="card-header font-weight-light cardheaderfixed">RMA number Info</div>
+        <div class="card-body" style="font-size:small;padding:2px 2px 2px 2px;height:150px;">
+            @if (Model.SelectedCase == null)
+            {
+                <span>No Case Info available.</span>
+            }
+            else
+            {
+                @Html.HiddenFor(model => model.SelectedCase.RMANumber, new { id = "hiddenRMANumber" })
+                @Html.HiddenFor(model => model.CaseNumber, new { id = "hiddenCaseId" })
+
+                <div id="divAddRMANumber">
+                    <table style="width:100%;">
+                        <tr style="height:100px;vertical-align:top;">
+                            <td>
+                                @Html.DisplayNameFor(model => model.SelectedCase.NewRMANumber):&nbsp;
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.SelectedCase.NewRMANumber, new { @class = "form-control placeholdertext", id = "txtNewRMANumber", style = "width:100px;height:25px;font-size:12px", placeholder = "Please input..." })
+                                @Html.HiddenFor(model => model.SelectedCase.NewRMANumber, new { id = "hiddenNewRMANumber" })
+                                <div class="invalid-feedback">
+                                    Alphanumeric only with length 1-24.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right" style="padding-right:10px;">
+                                <button type="button" class="btn btn-warning btnCancelRMANumber btn-sm" id="cancelEditRMANumber">Cancel</button>
+                                <button type="button" class="btn btn-warning btnAddRMANumber btn-sm" id="addRMANumber">Add</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="divEditRMANumber">
+                    <table style="width:100%;">
+                        <tr style="height:100px;vertical-align:top;">
+                            <td>
+                                @Html.DisplayNameFor(model => model.SelectedCase.RMANumber):&nbsp;
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.SelectedCase.RMANumber)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right" style="padding-right:10px;">
+                                <button type="button" class="btn btn-warning btnEditRMANumber btn-sm" id="editRMANumber">Edit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</form>

@@ -1,0 +1,16 @@
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\Tracs.Common.deps.json
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\Tracs.Common.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\Tracs.Common.pdb
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\System.Web.Extensions.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\System.Web.Abstractions.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\System.Data.Linq.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\System.Data.Services.Client.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\System.Data.Services.Design.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\bin\Debug\netcoreapp2.2\System.Data.Entity.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\obj\Debug\netcoreapp2.2\Tracs.Common.csproj.CoreCompileInputs.cache
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\obj\Debug\netcoreapp2.2\Tracs.Common.AssemblyInfoInputs.cache
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\obj\Debug\netcoreapp2.2\Tracs.Common.AssemblyInfo.cs
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\obj\Debug\netcoreapp2.2\Tracs.Common.csproj.CopyComplete
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\obj\Debug\netcoreapp2.2\Tracs.Common.dll
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\obj\Debug\netcoreapp2.2\Tracs.Common.pdb
+C:\Users\igor\source\repos\Tracs_Portal\Tracs.Common\obj\Debug\netcoreapp2.2\Tracs.Common.csprojAssemblyReference.cache

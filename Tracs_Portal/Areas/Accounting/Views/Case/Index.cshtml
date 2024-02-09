@@ -1,0 +1,108 @@
+﻿@using TRACSPortal.Areas.Accounting.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model AccountingCaseViewModel
+@*<head>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>*@
+<script>
+    $("#divCaseAddView").hide();
+    $("#divCaseEditView").hide();
+    $("#divCaseAddView").attr('disabled', 'disabled');
+    $("#divCaseEditView").attr('disabled', 'disabled');
+  
+    $(".alinkBackToHome").click(function (e) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Accounting/Case/GoBackToHome",
+            contentType: "application/json; charset=utf-8",
+            data: $('#formCase').serialize(),
+            dataType: "HTML",
+            async: true,
+            success: function (response) {
+                $('#divWrapBody').html(response);
+                $('#divWrapBody').show();
+            },
+            failure: function (response) {
+                alert('Customer content load failed.');
+            }
+        })
+    });
+</script>
+<div class="container accountingCase" id="divCase" style="width:100%">
+    <a class="alink alinkBackToHome" style="text-decoration: underline;cursor:pointer">Accounting Home</a>
+    <span> / Case</span>
+    <form method="GET" id="formCase" enctype="multipart/form-data">
+        <input type="hidden" id="HiddleSelectedCase" class="form-control" asp-for="CaseNumber" data-value="@Model.CaseNumber" />
+        <input type="hidden" id="HiddleSelectedCaseFor" class="form-control" asp-for="SelectedCaseFor" data-value="@Model.SelectedCase" />
+        <input type="hidden" id="HiddleSelectedInvoiceNumber" class="form-control" asp-for="SelectedInvoiceNumber" />
+        <input type="hidden" id="HiddleSelectedSerialNumber" class="form-control" asp-for="SelectedSerialNumber" />
+
+        @Html.HiddenFor(model => model.SelectedBillingId, new { id = "HiddleSelectedBillingId" })
+
+        @Html.HiddenFor(model => model.CurrentSearchModel.SelectedRadioSearch)
+        @Html.HiddenFor(model => model.CurrentSearchModel.SearchKeyWord)
+        @Html.HiddenFor(model => model.CurrentSearchModel.SelectedBankId)
+        @Html.HiddenFor(model => model.CurrentSearchModel.FromDate)
+        @Html.HiddenFor(model => model.CurrentSearchModel.ToDate)
+        <table style="margin:10px;width:100%">
+            <tr>
+                <td colspan="7">
+                    <span class="font-weight-bold">RMA case: @Html.DisplayFor(model => model.SelectedCase.CaseNumber) </span> &nbsp;&nbsp;&nbsp;
+                    <span style="background-color:lightyellow;padding-left:10px;padding-right:10px;">@Html.DisplayFor(model => model.SelectedCase.ClientType)</span> &nbsp;&nbsp;&nbsp;
+                    <span style="background-color:lightyellow;padding-left:10px;padding-right:10px;">@Html.DisplayFor(model => model.SelectedCase.SystemType)</span>
+                </td>
+            </tr>
+            <tr style="vertical-align:top;height:200px;">
+                <td>
+                    <div>
+                        @Html.Partial("_CaseBasicInfo", Model.SelectedCase.CaseBasicInfo)
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.Partial("_CaseTechnicianInfo", Model.SelectedCase.TechnicianInfo)
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.Partial("_CaseSiteInfo", Model.SelectedCase.SiteInfo)
+                    </div>
+                </td>
+                <td>
+                    <div id="divCaseRMAInfo">
+                        @Html.Partial("_CaseRMAInfo")
+                    </div>
+                </td>
+            </tr>
+            <tr style="vertical-align:top;height:180px;">
+                <td colspan="7">
+                    <div id="divCaseListView">
+                        <table style="width:100%">
+                            <tr>
+                                <td style="width:50%;vertical-align:top;">
+                                    <div id="divCasePartList">
+                                        @Html.Partial("_CasePartList")
+                                    </div>
+                                </td>
+                                <td style="width:50%;vertical-align:top;">
+                                    <div id="divCaseBillingList">
+                                        @Html.Partial("_CaseBillingList")
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="divCaseAddView">
+                        @Html.Partial("_CaseBillingAdd")
+                    </div>
+                    <div id="divCaseEditView">
+                        @Html.Partial("_CaseBillingEdit")
+
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+    </form>
+</div>

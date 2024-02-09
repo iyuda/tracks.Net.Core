@@ -1,0 +1,100 @@
+﻿@model TRACSPortal.Areas.Accounting.Models.AccountingCaseViewModel
+<script>
+    //$(".btnAddBilling").click(function (e) {
+    //    var $form = $(this.form);
+    //    $form[0].classList.add('was-validated');
+    //    if ($form[0].checkValidity() === false) {
+    //        e.preventDefault();
+    //        e.stopPropagation();
+    //        return false;
+    //    }
+    //    alert(1);
+    //    $.ajax({
+    //        cache: false,
+    //        type: "GET",
+    //        url: "/Accounting/Case/AddBilling",
+    //        contentType: "application/json; charset=utf-8",
+    //        data: $('#formCase').serialize(),
+    //        dataType: "HTML",
+    //        async: true,
+    //        success: function (response) {
+    //            $('#divBody').html(response);
+    //            $('#divBody').show();
+    //        },
+    //        failure: function (response) {
+    //            alert('Customer content load failed.');
+    //        }
+    //    })
+    //});
+    $("#txtPoOrderNumber").prop('required', true);
+    $("#txtPoOrderNumber").prop('pattern', '[A-Za-z0-9]{1,24}');
+    $("#txtSalesOrderNumber").prop('required', true);
+    $("#txtSalesOrderNumber").prop('pattern', '[A-Za-z0-9]{1,24}');
+    $("#txtInvoiceNumber").prop('required', true);
+    $("#txtInvoiceNumber").prop('pattern', '[A-Za-z0-9]{1,24}');
+</script>
+    <div class="card border-light mb-3">
+        <div class="card-header font-weight-light cardheaderfixed">
+            <span>Billing Info</span>
+        </div>
+        <div class="card-body" style="font-size:small;padding:20px 12px 12px 12px;height:350px;">
+            @if (Model.SelectedCase != null && Model.SelectedCase.PartListForAddBilling != null)
+            {
+                @if (Model.SelectedCase.PartListForAddBilling.Count > 0)
+                {
+                    <div class="input-group mb-md-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.NewBilling.PoOrderNumber)</span>
+                        </div>
+                        @*<input type="text" class="form-control" id="txtPoOrderNumber">*@
+                        @Html.TextBoxFor(model => model.NewBilling.PoOrderNumber, new { @class = "form-control", id = "txtPoOrderNumber", placeholder = "Please input PoOrderNumber" })
+                    </div>
+                    <div class="input-group mb-md-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.NewBilling.SalesOrderNumber)</span>
+                        </div>
+                        @*<input type="text" class="form-control" id="txtSalesOrderNumber">*@
+                        @Html.TextBoxFor(model => model.NewBilling.SalesOrderNumber, new { @class = "form-control", id = "txtSalesOrderNumber", placeholder = "Please input SalesOrderNumber" })
+                    </div>
+                    <div class="input-group mb-md-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="" style="width:160px;">@Html.DisplayNameFor(model => model.NewBilling.InvoiceNumber)</span>
+                        </div>
+                        @*<input type="text" class="form-control" id="txtInvoiceNumber">*@
+                        @Html.TextBoxFor(model => model.NewBilling.InvoiceNumber, new { @class = "form-control", id = "txtInvoiceNumber", placeholder = "Please input InvoiceNumber" })
+                    </div>
+                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                        @*<input type="checkbox" class="custom-control-input" id="customControlInline">*@
+                        @Html.CheckBoxFor(model => model.NewBilling.ClientRefused, new { @class = "custom-control-input", id = "customControlInline" })
+                        <label class="custom-control-label" for="customControlInline">Client refueses to purchase a new unit</label>
+                        @Html.HiddenFor(model => model.NewBilling.SeletedParts, new { id = "hiddenSeletedParts" })
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <span>There is no part available for adding billing.</span>
+                    </div>
+                }
+
+                <div class="custom-control-inline" style="float:right;vertical-align:text-bottom">
+                    <button type="button" class="btn btn-warning btnAddCancel" id="cancelAddButton">Cancel</button> &nbsp;&nbsp;
+                    @if (Model.SelectedCase.PartListForAddBilling.Count > 0)
+                    {
+                        <button type="button" class="btn btn-warning btnAddBilling" id="addBilling">Save</button>
+                    }
+                </div>
+            }
+            else
+            {
+                <div>
+                    <span>There is no part available for adding billing.</span>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-warning btnAddCancel" id="cancelAddButton2">Cancel</button>
+                </div>
+            }
+        </div>
+
+    </div>
+

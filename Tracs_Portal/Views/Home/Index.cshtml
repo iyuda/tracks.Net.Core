@@ -1,0 +1,20 @@
+﻿<head>
+    <link rel='stylesheet' id='bootstrap-css-css' href='~/WordPress/themes//css/bootstrap.min.css?ver=3.3.4' type='text/css' media='all' />
+    <link rel='stylesheet' id='jquery-ui-css-css' href='~/WordPress/plugins/jquery-ui.css?ver=4.9.7' type='text/css' media='all' />
+    <script type='text/javascript' src='~/WordPress/themes//js/bootstrap.min.js'></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+@{
+    ViewData["Title"] = "Home Page";
+    var IsMobile = ViewBag.IsMobile ?? false;
+    }
+
+    <h3>Welcome to TRACS Portal</h3>
+    <script>
+    $(document).ready(function () {
+        $("#IsMobile").val('@IsMobile');
+        if ('@ViewBag.PopupUserProfile' == 'True') {
+            ShowUserProfile();
+        }
+    });
+    </script>

@@ -1,0 +1,404 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    min-height: 100%;
+    margin-bottom: -330px;
+    position: relative;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 5px;
+    padding-right: 15px;
+    width: 100%;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+/* Navbar */
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.wrapper {
+    background-color: lightgray;
+    float: left;
+    width: 254px;
+    height: 100%
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #ddd;
+    color: #000000;
+    transition: all 0.3s;
+}
+
+    #sidebar .sidebar-header {
+        padding: 16px;
+        background: #ccc;
+    }
+
+    #sidebar ul.components {
+        padding: 20px 0;
+        border-bottom: 1px solid #47748b;
+    }
+
+    #sidebar ul p {
+        color: #fff;
+        padding: 10px;
+    }
+
+    #sidebar ul li a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+    }
+
+        #sidebar ul li a:hover {
+            color: #7386D5;
+            background: #fff;
+        }
+
+    #sidebar ul li.active > a, a[aria-expanded="true"] {
+        color: #fff;
+        background: #808080;
+    }
+.alink {
+    color: blue;
+    text-underline-position: below;
+    text-decoration: underline;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+/**Begin** Style For Accounting**/
+.cardheaderfixed {
+    height: 25px;
+    padding: 0;
+    background-color: #ffd6b8
+}
+
+.alink {
+    display: inline;
+    text-decoration: underline;
+    color: #2b0485
+}
+.headerBasic {
+    width: 50%;
+    vertical-align: top;
+}
+.headerPartDetails {
+    width: 60%;
+    vertical-align: top;
+}
+
+.tbpartlist tbody {
+    overflow: auto;
+    width: 100%;
+}
+.tbpartlist tbody tr {
+    line-height: 9px;
+    table-layout: fixed;
+}
+
+.tbpartlist thead tr {
+    background-color: #dfdede;
+    border-color: #e67e22;
+    vertical-align: text-top;
+    line-height: 1px;
+    color: #4d4c4c;
+    font-size: 11px;
+}
+
+.tbbillinglist tbody {
+    overflow: auto;
+    width: 100%;
+}
+
+.tbbillinglist thead tr {
+    background-color: #dfdede;
+    border-color: #e67e22;
+    vertical-align: text-top;
+    line-height: 1px;
+    color: #4d4c4c;
+    font-size: 11px;
+}
+.accountingCase .accountingPart {
+    margin-left: 0px;
+    min-width: 600px;
+    overflow: auto;
+    width: 100%;
+}
+.placeholdertext {
+    font-size: 12px;
+}
+/**End** Style For Accounting**/
+
+/* style for login */*/
+
+.show-password {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    margin-left: -10%;
+}
+
+.buttonwrapper {
+    display: inline-block;
+    width: 100%;
+}
+
+
+input[type="password"]:focus, .show-password:focus {
+    outline: none;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    /*border: inset 1px #EBE9ED;*/
+    padding: 2px;
+}
+
+/* end style for login */
+ 
+/* custom styles*/
+textarea {
+    resize: none;
+}
+
+    select.form-control, textarea.rma-textarea, input[role="combobox"], input[data-role="combobox"], input[type="text"], input[type="password"], input[type="email"], input[type="date"] {
+        font-size: initial;
+    }
+
+.fixed-dialog {
+    position: fixed;
+    top: 50px;
+    left: 50px;
+}
+
+.para-input-group {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.center {
+    margin: auto;
+    width: 100%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+
+.ui-dialog-title {
+    float: none !important;
+    display: block;
+    text-align: center;
+}
+
+.ui-dialog-titlebar {
+    background-color: #F57B20
+}
+
+.validate-error {
+    color: red;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+/*textarea:first-letter {
+            text-transform: capitalize;
+        }*/
+.dropdown-header {
+    border-width: 0 0 1px 0;
+    text-transform: uppercase;
+}
+
+    .dropdown-header > span {
+        display: inline-block;
+        padding: 10px;
+    }
+
+        .dropdown-header > span:first-child {
+            width: 50px;
+        }
+
+.selected-value {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    background-size: 100%;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+/* end custom styles  */
+
+#customers-list .k-item {
+    line-height: 1em;
+    min-width: 300px;
+}
+
+/* Material Theme padding adjustment*/
+
+.k-material #customers-list .k-item,
+.k-material #customers-list .k-item.k-state-hover,
+.k-materialblack #customers-list .k-item,
+.k-materialblack #customers-list .k-item.k-state-hover {
+    padding-left: 5px;
+    border-left: 0;
+}
+
+#customers-list .k-item > span {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    margin: 20px 10px 10px 5px;
+}
+
+    #customers-list .k-item > span:first-child {
+        -moz-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+        -webkit-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+        box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+        margin: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+#customers-list h3 {
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0 0 1px 0;
+    padding: 0;
+}
+
+#customers-list p {
+    margin: 0;
+    padding: 0;
+    font-size: .8em;
+}
+
+
+
+
+/* wordpress style*/
+select.wpcf7-form-control.wpcf7-select.wpcf7-validates-as-required.rma-called.form-control {
+    width: 10%;
+}
+
+input.wpcf7-form-control.wpcf7-text.rma-smalltext.form-control, input.wpcf7-form-control.wpcf7-date.wpcf7-validates-as-date.rma-calendar.form-control, input.wpcf7-form-control.wpcf7-text.rma-zip-code.form-control, input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required.rma-calendar.form-control {
+    width: 22%;
+}
+
+textarea.wpcf7-form-control.wpcf7-textarea.rma-textarea.form-control, select.wpcf7-form-control.wpcf7-select.wpcf7-validates-as-required.rma-dropdown.form-control, input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required.rma-textfield.form-control {
+    width: 75%;
+}
+
+input.wpcf7-form-control.wpcf7-text.rma-file-description.form-control {
+    width: 50%;
+}
+
+
+
+
+#left {
+    width: 47%;
+    float: left;
+    margin-right: 6%;
+}
+
+#right {
+    width: 47%;
+    float: left;
+}
+
+.clearfix:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.clearfix {
+    display: block;
+}
+
+.container1:after { /*clear float*/
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.section1 {
+    float: left;
+    width: 33.3333%;
+    border: 0px;
+    box-sizing: border-box;
+    padding: 10px 20px 10px 0px;
+}
+
+.section-mobile {
+    float: left;
+    width: 100%;
+    border: 0px;
+    box-sizing: border-box;
+    padding: 10px 20px 10px 0px;
+}
+
+
+.imgsize {
+    width: 250px !important;
+}
+/* end wordpress style */
+
+
+
